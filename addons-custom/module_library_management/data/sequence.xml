@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Adding New Sequence For A Field-->
+    <data noupdate="1">
+        <!-- Sequences for library.student-->
+        <record id="seq_library_student" model="ir.sequence">
+            <field name="name">Student Sequence</field>
+            <field name="code">library.student</field>
+            <field name="prefix">SV</field>
+            <field name="padding">3</field>
+        </record>
+
+        <!-- Sequences for library.teacher -->
+        <record id="seq_hospital_appointment" model="ir.sequence">
+            <field name="name">Teacher Sequence</field>
+            <field name="code">library.teacher</field>
+            <field name="prefix">GV</field>
+            <field name="padding">3</field>
+        </record>
+
+        <!-- Sequences for library.book -->
+        <record id="seq_library_book" model="ir.sequence">
+            <field name="name">Book Sequence</field>
+            <field name="code">library.book</field>
+            <field name="prefix">BOOK</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Sequences for library.computer -->
+        <record id="seq_library_computer" model="ir.sequence">
+            <field name="name">Computer Sequence</field>
+            <field name="code">library.computer</field>
+            <field name="prefix">COM</field>
+            <field name="padding">2</field>
+        </record>
+
+        <!-- Sequences for library.call.book.card -->
+        <record id="seq_library_code_call_book_card" model="ir.sequence">
+            <field name="name">Call Book Card Sequence</field>
+            <field name="code">library.call.book.card</field>
+            <field name="prefix">CBC</field>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="seq_library_code_call_computer_card" model="ir.sequence">
+            <field name="name">Call Computer Card Sequence</field>
+            <field name="code">library.call.computer.card</field>
+            <field name="prefix">CCC</field>
+            <field name="padding">2</field>
+        </record>
+
+    </data>
+</odoo>

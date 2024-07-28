@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_mobile_package_form" model="ir.ui.view">
+            <field name="name">mobile.package.form</field>
+            <field name="model">dth.kho.mobile.package</field>
+            <field name="arch" type="xml">
+                <form string="Gói cước" duplicate="0">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                        	<group>
+                        		<field name="name" placeholder="Nhập tên gói cước"/>
+                        		<field name="telecom_supplier_id" widget="many2one_avatar" placeholder="Chọn nhà mạng" options="{'no_create': True}"/>
+                        	</group>
+                        	<group>
+                        		<field name="code" placeholder="Nhập mã gói cước"/>
+                        		<field name="monthly_fee" placeholder="Nhập cước tháng"/>
+                        	</group>
+                        </group>
+                        <group>
+                        	<field name="condition" placeholder="Nhập điều kiện áp dụng"/>
+                        </group>
+                        <separator string="Ưu đãi"/>
+                        <field name="endown_ids" label="0">
+                        	<tree string="Ưu đãi" editable="bottom" decoration-muted="not is_active" decoration-success="is_active">
+                        		<field name="date_start" width="100"/>
+                        		<field name="date_end" width="100"/>
+                        		<field name="description"/>
+                        		<field name="hot" widget="boolean_toggle" width="100"/>
+                        		<field name="is_active" column_invisible="1"/>
+                        	</tree>
+                        </field>
+                        <separator/>
+                        <group>
+                        	<field name="note" placeholder="Nhập ghi chú"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mobile_package_tree" model="ir.ui.view">
+            <field name="name">mobile.package.tree</field>
+            <field name="model">dth.kho.mobile.package</field>
+            <field name="arch" type="xml">
+                <tree string="Gói cước" sample="1" export_xlsx="0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="telecom_supplier_id" widget="many2one_avatar"/>
+                    <field name="monthly_fee"/>
+                    <field name="hot_endown"/>
+                    <field name="date_create"/>
+                    <field name="date_update"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mobile_package_filter" model="ir.ui.view">
+            <field name="name">mobile.package.search</field>
+            <field name="model">dth.kho.mobile.package</field>
+            <field name="arch" type="xml">
+                <search string="Gói cước">
+                    <field name="code" string="Mã gói cước"/>
+                    <field name="name" string="Tên gói cước"/>
+                    <field name="telecom_supplier_id" string="Nhà mạng"/>
+                    <field name="hot_endown" string="Ưu đãi nổi bật"/>
+                    <separator/>
+                    <filter name="filter_hot_endown" string="Có ưu đãi nổi bật" domain="[('hot_endown', '!=', '')]"/>
+                    <separator/>
+                    <filter name="filter_archived" string="Đã Lưu Trữ" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Nhà mạng" name="group_telecom_supplier_id" domain="[]" context="{'group_by': 'telecom_supplier_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_mobile_package" model="ir.actions.act_window">
+            <field name="name">Gói cước</field>
+            <field name="res_model">dth.kho.mobile.package</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_mobile_package_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một Gói Cước.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

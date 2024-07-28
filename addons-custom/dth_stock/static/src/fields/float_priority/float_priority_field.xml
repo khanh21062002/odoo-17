@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dth_stock.FloatPriorityField">
+    	<t t-set="value" t-value="this.props.record.data[this.props.name]"/>
+        <div class="o_float_priority" role="radiogroup" name="float_priority" aria-label="Priority" style="text-align: center">
+            <t t-foreach="[1,2,3,4,5]" t-as="i" t-key="i">
+	            <span
+	                class="o_priority_star fa"
+	                role="radio"
+	                t-att-class="i lte value ? 'fa-star' : i lte (value + 0.5) ? 'fa-star-half' : 'fa-star-o'"
+	            />
+            </t>
+        </div>
+        <p style="text-align: center">(<t t-esc="value"/>)</p>
+    </t>
+
+</templates>

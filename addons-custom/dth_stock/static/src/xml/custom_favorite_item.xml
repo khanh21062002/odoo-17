@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="web.CustomFavoriteItem" t-inherit-mode="extension">
+		<xpath expr="//AccordionItem" position="replace">
+			<t t-if="this.env.searchModel.resModel == 'dth.kho.sim.warehouse'">
+				<div class="px-3 py-2">
+	                <input type="text"
+	                    class="o_input o_favorite_input"
+	                    t-ref="description"
+	                    t-model.trim="state.description"
+	                    t-on-keydown="onInputKeydown"
+	                    />
+	            </div>
+	            <div class="px-3 py-2">
+	                <button class="o_save_favorite btn btn-primary w-50" t-on-click="saveFavorite">
+	                    Save
+	                </button>
+	                <button class="o_delete_favorite btn btn-secondary w-50" t-on-click="deleteAllFavorite">
+	                    Xóa tất cả
+	                </button>
+	            </div>
+			</t>
+			<t t-if="this.env.searchModel.resModel != 'dth.kho.sim.warehouse'">
+				<AccordionItem class="'o_add_favorite text-truncate'" description="saveCurrentSearchDescription">
+		            <div class="px-3 py-2">
+		                <input type="text"
+		                    class="o_input"
+		                    t-ref="description"
+		                    t-model.trim="state.description"
+		                    t-on-keydown="onInputKeydown"
+		                    />
+		                <CheckBox value="state.isDefault" onChange.bind="onDefaultCheckboxChange">
+		                    <span data-tooltip="Use this filter by default when opening this view">Default filter</span>
+		                </CheckBox>
+		                <CheckBox value="state.isShared" onChange.bind="onShareCheckboxChange">
+		                    <span data-tooltip="Make this filter available to other users">Shared</span>
+		                </CheckBox>
+		            </div>
+		            <div class="px-3 py-2">
+		                <button class="o_save_favorite btn btn-primary w-100" t-on-click="saveFavorite">
+		                    Save
+		                </button>
+		            </div>
+	        	</AccordionItem>
+        	</t>
+		</xpath>
+    </t>
+
+</templates>

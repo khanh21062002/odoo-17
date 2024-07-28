@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_sim_search_history_tree" model="ir.ui.view">
+            <field name="name">sim.search.history.tree</field>
+            <field name="model">dth.kho.sim.search.history</field>
+            <field name="arch" type="xml">
+                <tree string="Lịch sử tra số" sample="1" create="0" edit="0">
+                    <field name="sim_search"/>
+                    <field name="write_uid" string="ID check số" widget="many2one_avatar_user"/>
+                    <field name="create_date" string="Thời gian tra cứu"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sim_search_history_filter" model="ir.ui.view">
+            <field name="name">sim.search.history.search</field>
+            <field name="model">dth.kho.sim.search.history</field>
+            <field name="arch" type="xml">
+                <search string="Lịch sử tra số">
+					<field name="sim_search" string="Số sim"/>
+					<field name="write_uid" string="Người tra cứu"/>
+                    <separator/>
+                    <filter string="Thời gian tra cứu" name="filter_create_date" date="create_date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Số sim" name="group_sim_search" domain="[]" context="{'group_by': 'sim_search'}"/>
+                        <filter string="Người tra cứu" name="group_write_uid" domain="[]" context="{'group_by': 'write_uid'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_sim_search_history" model="ir.actions.act_window">
+            <field name="name">Lịch sử tra số</field>
+            <field name="res_model">dth.kho.sim.search.history</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_sim_search_history_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo mới Lịch sử tra số
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

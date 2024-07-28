@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="library_management_level_tree" model="ir.ui.view">
+            <field name="name">library.level.tree</field>
+            <field name="model">library.level</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách Trình độ học vấn">
+                    <field name="name"/>
+                    <field name="level_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="library_management_level_form" model="ir.ui.view">
+            <field name="name">library.level.form</field>
+            <field name="model">library.level</field>
+            <field name="arch" type="xml">
+                <form string="Thông tin Trình độ học vấn">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="level_code"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_management_level_search" model="ir.ui.view">
+            <field name="name">library.level.search</field>
+            <field name="model">library.level</field>
+            <field name="arch" type="xml">
+                <search string="Tìm kiếm Trình độ học vấn">
+                    <field name="name" filter_domain="['|',('name', 'ilike', self),('level_code', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_library_management_level" model="ir.actions.act_window">
+            <field name="name">Trình độ học vấn</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">library.level</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Hãy thêm một Trình độ học vấn mới !
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="library_management_level"
+                name="Trình độ học vấn"
+                parent="menu_library_management_setting"
+                action="action_library_management_level"
+                sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,118 @@
+// ------- List renderer -------
+.o_list_renderer {
+    .o_list_table {
+        .o_data_row:not(.o_selected_row) .o_data_cell {
+            // These widgets enable the checkbox if there is no readonly modifier.
+            &.o_boolean_toggle_confirm_cell {
+                > .o_field_widget:not(.o_readonly_modifier) .form-check {
+                    pointer-events: auto;
+                }
+            }
+        }
+    }
+}
+
+.o_field_color {
+	border: none !important;
+	width: 10px !important;
+	height: 10px !important;
+	margin-top: 5px !important;
+}
+
+.filter-container {
+	display: flex;
+}
+
+.filter-column {
+  flex: 1;
+  margin: 5px;
+}
+
+.o_filter_menu {
+	max-width: none !important;
+}
+
+.copy-board {
+    width: 250px;
+    height: 185px;
+    
+}
+
+.copy-board-container {
+	position: fixed;
+    bottom: 0px;
+    right: 0px;
+    margin: 0px;
+    display: none;
+}
+
+.copy_board_close {
+	position: absolute;
+	right: 0;
+}
+
+.o_group_has_content {
+	th {
+		background-color: #ccc !important;
+	}
+}
+
+.up-bang {
+	text-align: center;
+	div {
+		display: block !important;
+	}
+}
+
+label.o_form_label_readonly {
+	font-weight: 500 !important;
+	opacity: 1 !important;
+}
+
+.sim_number_upload_history {
+    .o_list_button {
+        text-align: center;
+    }
+}
+
+.sim_number_upload_history_detail {
+    table {
+        text-align: center;
+    }
+}
+
+.flash_list_sim_maker_ids {
+    .o_field_tags {
+        width: 100%;
+    }
+}
+
+.flash_list_according_network {
+    .o_field_tags {
+        width: 100%;
+    }
+}
+
+.flash_list_by_sim_type {
+    .o_field_tags {
+        width: 100%;
+    } 
+}
+
+.configuration_repository_id table tr {    
+    th:first-child, th:nth-child(2), th:nth-child(3), th:nth-child(4) {
+        width: 30% !important;
+    }
+    th:nth-child(3), th:nth-child(4) {
+        text-align: end !important;
+    }
+}
+
+.abnormal {
+	.form-switch {
+		.form-check-input:checked {
+			background-color: red !important;
+			border-color: red !important;
+		}
+	}
+}

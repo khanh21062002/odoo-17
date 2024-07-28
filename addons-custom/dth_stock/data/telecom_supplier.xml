@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="telecom_supplier_1" model="dth.kho.telecom.supplier">
+			<field name="name">Viettel</field>
+			<field name="code">10</field>
+			<field name="image_128" type="base64" file="dth_stock/static/img/telecom_supplier/vietel_logo.jpg"/>
+		</record>
+		<record id="telecom_supplier_2" model="dth.kho.telecom.supplier">
+			<field name="name">VinaPhone</field>
+			<field name="code">11</field>
+			<field name="image_128" type="base64" file="dth_stock/static/img/telecom_supplier/vinaphone_logo.jpg"/>
+		</record>
+		<record id="telecom_supplier_3" model="dth.kho.telecom.supplier">
+			<field name="name">MobiFone</field>
+			<field name="code">12</field>
+			<field name="image_128" type="base64" file="dth_stock/static/img/telecom_supplier/mobifone_logo.jpg"/>
+		</record>
+		<record id="telecom_supplier_4" model="dth.kho.telecom.supplier">
+			<field name="name">Vietnamobile</field>
+			<field name="code">13</field>
+			<field name="image_128" type="base64" file="dth_stock/static/img/telecom_supplier/vietnamobile_logo.jpg"/>
+		</record>
+		<record id="telecom_supplier_5" model="dth.kho.telecom.supplier">
+			<field name="name">Itelecom</field>
+			<field name="code">14</field>
+		</record>
+		<record id="telecom_supplier_6" model="dth.kho.telecom.supplier">
+			<field name="name">Gmobile</field>
+			<field name="code">15</field>
+		</record>
+		<record id="telecom_supplier_7" model="dth.kho.telecom.supplier">
+			<field name="name">Wintel</field>
+			<field name="code">16</field>
+		</record>
+	</data>
+</odoo>

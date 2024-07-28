@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sim_warehouse_form" model="ir.ui.view">
+            <field name="name">sim.warehouse.form</field>
+            <field name="model">dth.kho.sim.warehouse</field>
+            <field name="arch" type="xml">
+                <form string="Kho sim" duplicate="0">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                        	<group>
+								<field name="currency_id" invisible="1"/>
+								<field name="sim_data_id" invisible="1"/>
+                        		<field name="name_full" string="Số sim" placeholder="Nhập số sim" readonly="id != False"/>
+                        		<field name="sim_maker_id" string="Kho" placeholder="Chọn kho" options="{'no_create': True}" readonly="id != False"/>
+                        		<field name="telecom_supplier_id" placeholder="Chọn nhà mạng" widget="many2one_avatar" options="{'no_create': True}"/>
+                        		<field name="sub_type" placeholder="Chọn loại thuê bao"/>
+                        		<field name="commited" placeholder="Nhập thông tin cam kết"/>
+                        		<field name="package_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                        		<field name="category_ids" widget="many2many_tags" invisible="id == False"/>
+                        	</group>
+                        	<group>
+                        		<field name="web_price_s" placeholder="Nhập giá web"/>
+                        		<field name="sell_price_s" placeholder="Nhập giá bán"/>
+                        		<field name="buy_price_s" placeholder="Nhập giá thu"/>
+                        		<field name="profit"/>
+                        		<field name="sim_state" placeholder="Chọn tình trạng sim"/>
+                        		<field name="sim_status" invisible="id == False"/>
+                        		<field name="installment" invisible="1"/>
+                        		<label for="installment_percent" string="Trả góp" invisible="installment == False"/>
+                        		<div invisible="installment == False">
+                        			<field name="installment_percent" class="oe_inline"/><span>% / tháng</span>
+                        		</div>
+                        	</group>
+                        </group>
+                        <group>
+                        	<field name="note" placeholder="Nhập ghi chú"/>
+                        </group>
+                        <notebook>
+                            <page string="Danh sách comment" name="comment_info">
+								<field name="comment_wh_history_ids" nolabel="1" readonly="1">
+									<tree editable="bottom">
+										<field name="write_date" string="Thời gian comment"/>
+					                    <field name="state"/>
+					                    <field name="note"/>
+					                    <field name="create_uid" widget="many2one_avatar_user" string="Người comment"/>
+									</tree>
+								</field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sim_warehouse_tree" model="ir.ui.view">
+            <field name="name">sim.warehouse.tree</field>
+            <field name="model">dth.kho.sim.warehouse</field>
+            <field name="arch" type="xml">
+                <tree string="Kho sim" sample="1" duplicate="0" export_xlsx="0" expand="1">
+                	<header>
+						<button name="copy_sim"
+	                            type="object"
+	                            string="Sao chép"
+	                            class="btn-secondary"/>
+	                </header>
+	                <field name="currency_id" column_invisible="1"/>
+	                <button name="change_status_sim" icon="fa-comment" type="object" title="Comment giữ số"/>
+	                <button name="copy_sim" icon="fa-copy" type="object" title="Sao chép"/>
+                    <field name="comment_display" string="Số sim" width="200"/>
+                    <field name="web_price_s"/>
+                    <field name="buy_price_s" column_invisible="1"/>
+                    <field name="sell_price_s" string="Giá bán / Giá thu" widget="monetary_price"/>
+                    <field name="telecom_supplier_id" widget="many2one_image"/>
+                    <field name="write_date" string="Cập nhật" widget="datetime_string"/>
+                    <field name="sub_type"/>
+                    <field name="commited"/>
+                    <field name="package_ids" widget="many2many_tags"/>
+                    <field name="sm_description"/>
+                    <field name="package_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="category_ids" widget="many2many_tags" optional="hide"/>
+                    <field name="sim_state" optional="hide"/>
+                    <field name="sim_status" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sim_data_filter" model="ir.ui.view">
+            <field name="name">sim.data.search</field>
+            <field name="model">dth.kho.sim.data</field>
+            <field name="arch" type="xml">
+                <search string="Kho Sim">
+                    <field name="name" string="Số sim" filter_domain="['|', ('name','ilike',self), ('name_full','ilike',self)]"/>
+                    <field name="telecom_supplier_id" string="Nhà mạng"/>
+                    <field name="sub_type" string="Loại thuê bao"/>
+                    <separator/>
+                    <filter name="filter_last_30_days" string="Hiện số up 30 ngày" domain="[('create_date','&gt;=', datetime.datetime.combine(context_today() - relativedelta(days=30), datetime.time(0,0,0)))]"/>
+                    <separator/>
+                    <filter name="filter_telcom_viettel" string="Viettel" domain="[('telecom_supplier_code', '=', 10)]"/>
+                    <filter name="filter_telcom_vinaphone" string="Vinaphone" domain="[('telecom_supplier_code', '=', 11)]"/>
+                    <filter name="filter_telcom_mobiphone" string="Mobifone" domain="[('telecom_supplier_code', '=', 12)]"/>
+                    <filter name="filter_telcom_vietnamobile" string="Vietnamobile" domain="[('telecom_supplier_code', '=', 13)]"/>
+                    <filter name="filter_telcom_itel" string="Itel" domain="[('telecom_supplier_code', '=', 14)]"/>
+                    <filter name="filter_telcom_gmobile" string="Gmobile" domain="[('telecom_supplier_code', '=', 15)]"/>
+                    <filter name="filter_telcom_wintel" string="Wintel" domain="[('telecom_supplier_code', '=', 16)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Số sim" name="group_name_full" domain="[]" context="{'group_by': 'name_full'}"/>
+                        <filter string="Nhà mạng" name="group_telecom_supplier_id" domain="[]" context="{'group_by': 'telecom_supplier_id'}"/>
+                        <filter string="Loại thuê bao" name="group_sub_type" domain="[]" context="{'group_by': 'sub_type'}"/>
+                        <filter string="Trạng thái sim" name="group_sim_state" domain="[]" context="{'group_by': 'sim_state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_sim_warehouse_filter" model="ir.ui.view">
+            <field name="name">sim.warehouse.search</field>
+            <field name="model">dth.kho.sim.warehouse</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="dth_stock.view_sim_data_filter"/>
+            <field name="arch" type="xml">
+				<field name="name" position="after">
+					<field name="sim_maker_id" string="Kho" filter_domain="['|', ('sim_maker_id.code', '=', self), ('sim_maker_id.name', 'ilike', self)]"/>
+				</field>
+                <field name="sub_type" position="after">
+					<field name="sim_status" string="Tình trạng sim"/>
+				</field>
+				<filter name="group_name_full" position="after">
+					<filter string="Kho" name="group_sim_maker_id" domain="[]" context="{'group_by': 'sim_maker_id'}"/>
+				</filter>
+				<filter name="group_sim_state" position="after">
+					<filter string="Tình trạng sim" name="group_sim_status" domain="[]" context="{'group_by': 'sim_status'}"/>
+				</filter>
+				<filter name="filter_telcom_wintel" position="after">
+					<separator/>
+					<filter name="filter_da_ban" string="Đã bán" domain="[('sim_status', '=', 'da_ban')]"/>
+					<filter name="filter_so_con" string="Số còn" domain="[('sim_status', '=', 'so_con')]"/>
+					<filter name="filter_dang_lv" string="Đang làm việc" domain="[('sim_status', '=', 'dang_lv')]"/>
+					<separator/>
+					<filter name="filter_tra_truoc" string="Trả trước" domain="[('sub_type', '=', 'tra_truoc')]"/>
+					<filter name="filter_tra_sau" string="Trả sau" domain="[('sub_type', '=', 'tra_sau')]"/>
+					<separator/>
+					<filter name="filter_dau_09" string="Đầu số 09" domain="[('name', '=ilike', '09%')]"/>
+					<filter name="filter_dau_08" string="Đầu số 08" domain="[('name', '=ilike', '08%')]"/>
+					<filter name="filter_dau_07" string="Đầu số 07" domain="[('name', '=ilike', '07%')]"/>
+					<filter name="filter_dau_05" string="Đầu số 05" domain="[('name', '=ilike', '05%')]"/>
+					<filter name="filter_dau_03" string="Đầu số 03" domain="[('name', '=ilike', '03%')]"/>
+					<separator/>
+					<filter name="filter_menh_kim" string="Hợp mệnh kim" domain="[('category_ids.code', '=', 114)]"/>
+					<filter name="filter_menh_moc" string="Hợp mệnh mộc" domain="[('category_ids.code', '=', 112)]"/>
+					<filter name="filter_menh_thuy" string="Hợp mệnh thủy" domain="[('category_ids.code', '=', 110)]"/>
+					<filter name="filter_menh_hoa" string="Hợp mệnh hỏa" domain="[('category_ids.code', '=', 111)]"/>
+					<filter name="filter_menh_tho" string="Hợp mệnh thổ" domain="[('category_ids.code', '=', 113)]"/>
+					<separator/>
+					<filter name="filter_avoid0" string="Tránh 0" domain="[('num3', '!=', 0), ('num4', '!=', 0), ('num5', '!=', 0), ('num6', '!=', 0), ('num7', '!=', 0), ('num8', '!=', 0), ('num9', '!=', 0)]"/>
+					<separator/>
+					<filter name="filter_avoid1" string="Tránh 1" domain="[('name', 'not ilike', '1')]"/>
+					<separator/>
+					<filter name="filter_avoid2" string="Tránh 2" domain="[('name', 'not ilike', '2')]"/>
+					<separator/>
+					<filter name="filter_avoid3" string="Tránh 3" domain="[('name', 'not ilike', '3')]"/>
+					<separator/>
+					<filter name="filter_avoid4" string="Tránh 4" domain="[('name', 'not ilike', '4')]"/>
+					<separator/>
+					<filter name="filter_avoid5" string="Tránh 5" domain="[('name', 'not ilike', '5')]"/>
+					<separator/>
+					<filter name="filter_avoid6" string="Tránh 6" domain="[('name', 'not ilike', '6')]"/>
+					<separator/>
+					<filter name="filter_avoid7" string="Tránh 7" domain="[('name', 'not ilike', '7')]"/>
+					<separator/>
+					<filter name="filter_avoid8" string="Tránh 8" domain="[('name', 'not ilike', '8')]"/>
+					<separator/>
+					<filter name="filter_avoid9" string="Tránh 9" domain="[('name', 'not ilike', '9')]"/>
+					<separator/>
+					<filter name="filter_avoid49" string="Tránh 49" domain="[('name', 'not ilike', '49')]"/>
+					<separator/>
+					<filter name="filter_avoid53" string="Tránh 53" domain="[('name', 'not ilike', '53')]"/>
+					<separator/>
+					<filter name="filter_luc_quy" string="Lục quý" domain="[('category_ids.code', '=', 100)]"/>
+					<separator/>
+					<filter name="filter_luc_quy_giua" string="Lục quý giữa" domain="[('category_ids.code', '=', 105)]"/>
+					<separator/>
+					<filter name="filter_ngu_quy" string="Ngũ quý" domain="[('category_ids.code', '=', 99)]"/>
+					<separator/>
+					<filter name="filter_ngu_quy_giua" string="Ngũ quý giữa" domain="[('category_ids.code', '=', 104)]"/>
+					<separator/>
+					<filter name="filter_tu_quy" string="Tứ quý" domain="[('category_ids.code', '=', 68)]"/>
+					<separator/>
+					<filter name="filter_tu_quy_giua" string="Tứ quý giữa" domain="[('category_ids.code', '=', 103)]"/>
+					<separator/>
+					<filter name="filter_tam_hoa" string="Tam hoa" domain="[('category_ids.code', '=', 80)]"/>
+					<separator/>
+					<filter name="filter_tam_hoa_kep" string="Tam hoa kép" domain="[('category_ids.code', '=', 102)]"/>
+					<separator/>
+					<filter name="filter_sim_vip" string="Sim VIP" domain="[('category_ids.code', '=', 82)]"/>
+					<separator/>
+					<filter name="filter_de_nho" string="Dễ nhớ" domain="[('category_ids.code', '=', 76)]"/>
+					<separator/>
+					<filter name="filter_tien_len" string="Tiến lên" domain="[('category_ids.code', '=', 81)]"/>
+					<separator/>
+					<filter name="filter_dau_so_co" string="Đầu số cổ" domain="[('category_ids.code', '=', 106)]"/>
+					<separator/>
+					<filter name="filter_so_doc" string="Số độc" domain="[('category_ids.code', '=', 78)]"/>
+					<separator/>
+					<filter name="filter_ganh_dao" string="Gánh đảo" domain="[('category_ids.code', '=', 79)]"/>
+					<separator/>
+					<filter name="filter_sim_doi" string="Sim Đôi" domain="[('category_ids.code', '=', 71)]"/>
+					<separator/>
+					<filter name="filter_lap_2" string="Lặp 2" domain="[('category_ids.code', '=', 123)]"/>
+					<separator/>
+					<filter name="filter_lap_3" string="Lặp 3" domain="[('category_ids.code', '=', 124)]"/>
+					<separator/>
+					<filter name="filter_lap_4" string="Lặp 4" domain="[('category_ids.code', '=', 125)]"/>
+					<separator/>
+					<filter name="filter_kep_2" string="Kép 2" domain="[('category_ids.code', '=', 120)]"/>
+					<separator/>
+					<filter name="filter_kep_3" string="Kép 3" domain="[('category_ids.code', '=', 121)]"/>
+					<separator/>
+					<filter name="filter_kep_4" string="Kép 4" domain="[('category_ids.code', '=', 122)]"/>
+					<separator/>
+					<filter name="filter_loc_phat" string="Lộc phát" domain="[('category_ids.code', '=', 73)]"/>
+					<separator/>
+					<filter name="filter_than_tai" string="Thần tài" domain="[('category_ids.code', '=', 72)]"/>
+					<separator/>
+					<filter name="filter_ong_dia" string="Ông địa" domain="[('category_ids.code', '=', 70)]"/>
+					<separator/>
+					<filter name="filter_dai_cat" string="Đại cát" domain="[('category_ids.code', '=', 115)]"/>
+					<separator/>
+					<filter name="filter_taxi" string="Sim Taxi/Hotline" domain="[('category_ids.code', '=', 74)]"/>
+					<separator/>
+					<filter name="filter_gia_re" string="Giá rẻ" domain="[('category_ids.code', '=', 10)]"/>
+					<separator/>
+					<filter name="filter_khuyen_mai" string="Khuyến mãi" domain="[('category_ids.code', '=', 10)]"/>
+					<separator/>
+					<filter name="filter_tra_gop" string="Trả góp" domain="[('category_ids.code', '=', 200)]"/>
+				</filter>
+            </field>
+        </record>
+
+        <record id="action_sim_warehouse" model="ir.actions.act_window">
+            <field name="name">Kho Sim</field>
+            <field name="res_model">dth.kho.sim.warehouse</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_sim_warehouse_filter"/>
+            <field name="context">{'search_default_group_name_full': 1, 'search_default_filter_last_30_days': 1, 'search_default_filter_so_con': 1, 'search_default_filter_dang_lv': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một Số sim.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_sim_warehouse_spa" model="ir.actions.act_url">
+            <field name="name">Kho Sim SPA</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="target">new</field>
+            <field name="url" eval="'/sim_warehouse_spa'"/>
+        </record>
+    </data>
+</odoo>

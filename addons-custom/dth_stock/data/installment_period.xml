@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="installment_period_03" model="dth.kho.installment.period">
+			<field name="name">3 tháng</field>
+		</record>
+		<record id="installment_period_06" model="dth.kho.installment.period">
+			<field name="name">6 tháng</field>
+		</record>
+		<record id="installment_period_09" model="dth.kho.installment.period">
+			<field name="name">9 tháng</field>
+		</record>
+		<record id="installment_period_12" model="dth.kho.installment.period">
+			<field name="name">12 tháng</field>
+		</record>
+		<record id="installment_period_15" model="dth.kho.installment.period">
+			<field name="name">15 tháng</field>
+		</record>
+		<record id="installment_period_18" model="dth.kho.installment.period">
+			<field name="name">18 tháng</field>
+		</record>
+		<record id="installment_period_21" model="dth.kho.installment.period">
+			<field name="name">21 tháng</field>
+		</record>
+		<record id="installment_period_24" model="dth.kho.installment.period">
+			<field name="name">24 tháng</field>
+		</record>
+	</data>
+</odoo>

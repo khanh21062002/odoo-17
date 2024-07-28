@@ -1,0 +1,41 @@
+.o_field_widget {
+	&.o_field_float_priority {
+		display: inline-block !important;
+	    &.o_float_priority, & .o_float_priority {
+	        display: inline-block;
+	        padding: 0;
+	        margin: 0;
+	        vertical-align: baseline;
+	        > .o_priority_star {
+	            display: inline-block;
+	            font-size: 1.35em;
+	            &:hover, &:focus {
+	                text-decoration: none;
+	                outline: none;
+	            }
+	
+	            + .o_priority_star {
+	                padding-left: 5px;
+	            }
+	
+	            &.fa-star-o {
+	                color: #999;
+	            }
+	            &.fa-star {
+	                color: $o-main-favorite-color;
+	            }
+	            &.fa-star-half:before {
+					content: "\f006" !important;
+					color: #999!important;
+				}
+				&.fa-star-half:after {
+					content: "\f089";
+					color: $o-main-favorite-color;
+		            margin-left: -18px;
+		            position: absolute;
+		            overflow: hidden;
+				}
+	        }
+        }
+    }
+}

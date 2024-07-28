@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <!-- Tree View cho Chi Tiết -->
+        <record id="view_sim_number_upload_history_detail_tree" model="ir.ui.view">
+            <field name="name">sim.number.upload.history.detail.tree</field>
+            <field name="model">dth.kho.sim.number.upload.history.detail</field>
+            <field name="arch" type="xml">
+                <tree string="Chi tiết lịch sử up số sim" sample="1" create="0" class="sim_number_upload_history_detail">
+                    <field name="currency_id" column_invisible="1"/>
+                    <field name="sim_number"/>
+                    <field name="sim_maker_id"/>
+                    <field name="buy_price_s" widget="monetary"/>
+                    <field name="sell_price_s" widget="monetary"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sim_number_upload_history_filter" model="ir.ui.view">
+            <field name="name">sim.number.upload.history.detail.search</field>
+            <field name="model">dth.kho.sim.number.upload.history.detail</field>
+            <field name="arch" type="xml">
+                <search string="Chi tiết lịch sử up số sim">
+					<field name="sim_maker_id" string="Thợ sim"/>
+					<field name="sim_number" string="Số điện thoại"/>
+                    <separator/>
+                    <filter string="Thời gian tra cứu" name="filter_create_date" date="create_date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Thợ sim" name="group_sim_maker_id" domain="[]" context="{'group_by': 'sim_maker_id'}"/>
+                        <filter string="Số điện thoại" name="group_sim_number" domain="[]" context="{'group_by': 'sim_number'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action cho Chi Tiết -->
+        <record id="action_sim_number_upload_history_detail" model="ir.actions.act_window">
+            <field name="name">Chi tiết lịch sử up số sim</field>
+            <field name="res_model">dth.kho.sim.number.upload.history.detail</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

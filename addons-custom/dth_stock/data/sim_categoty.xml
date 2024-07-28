@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="sim_category_10" model="dth.kho.sim.category">
+			<field name="name">Sim giá rẻ</field>
+			<field name="code">10</field>
+		</record>
+		<record id="sim_category_11" model="dth.kho.sim.category">
+			<field name="name">Sim trả sau</field>
+			<field name="code">11</field>
+		</record>
+		<record id="sim_category_82" model="dth.kho.sim.category">
+			<field name="name">Sim VIP</field>
+			<field name="code">82</field>
+		</record>
+		<record id="sim_category_73" model="dth.kho.sim.category">
+			<field name="name">Sim Lộc phát</field>
+			<field name="code">73</field>
+		</record>
+		<record id="sim_category_72" model="dth.kho.sim.category">
+			<field name="name">Sim Thần tài</field>
+			<field name="code">72</field>
+		</record>
+		<record id="sim_category_70" model="dth.kho.sim.category">
+			<field name="name">Sim Ông địa</field>
+			<field name="code">70</field>
+		</record>
+		<record id="sim_category_80" model="dth.kho.sim.category">
+			<field name="name">Sim Tam hoa</field>
+			<field name="code">80</field>
+		</record>
+		<record id="sim_category_68" model="dth.kho.sim.category">
+			<field name="name">Sim Tứ quý</field>
+			<field name="code">68</field>
+		</record>
+		<record id="sim_category_74" model="dth.kho.sim.category">
+			<field name="name">Sim Taxi</field>
+			<field name="code">74</field>
+		</record>
+		<record id="sim_category_67" model="dth.kho.sim.category">
+			<field name="name">Sim Lặp kép</field>
+			<field name="code">67</field>
+		</record>
+		<record id="sim_category_79" model="dth.kho.sim.category">
+			<field name="name">Sim Gánh đảo</field>
+			<field name="code">79</field>
+		</record>
+		
+		<record id="sim_category_81" model="dth.kho.sim.category">
+			<field name="name">Sim Tiến lên</field>
+			<field name="code">81</field>
+		</record>
+		<record id="sim_category_71" model="dth.kho.sim.category">
+			<field name="name">Sim Đôi</field>
+			<field name="code">71</field>
+		</record>
+		<record id="sim_category_76" model="dth.kho.sim.category">
+			<field name="name">Sim Dễ nhớ</field>
+			<field name="code">76</field>
+		</record>
+		<record id="sim_category_77" model="dth.kho.sim.category">
+			<field name="name">Sim Năm sinh</field>
+			<field name="code">77</field>
+		</record>
+		<record id="sim_category_78" model="dth.kho.sim.category">
+			<field name="name">Sim Số độc</field>
+			<field name="code">78</field>
+		</record>
+		<record id="sim_category_84" model="dth.kho.sim.category">
+			<field name="name">Sim tự chọn</field>
+			<field name="code">84</field>
+		</record>
+		<record id="sim_category_86" model="dth.kho.sim.category">
+			<field name="name">Số máy bàn</field>
+			<field name="code">86</field>
+		</record>
+		<record id="sim_category_99" model="dth.kho.sim.category">
+			<field name="name">Sim Ngũ Quý</field>
+			<field name="code">99</field>
+		</record>
+		<record id="sim_category_100" model="dth.kho.sim.category">
+			<field name="name">Sim Lục Quý</field>
+			<field name="code">100</field>
+		</record>
+		<record id="sim_category_102" model="dth.kho.sim.category">
+			<field name="name">Tam hoa kép</field>
+			<field name="code">102</field>
+		</record>
+		
+		<record id="sim_category_106" model="dth.kho.sim.category">
+			<field name="name">Sim Đầu cổ</field>
+			<field name="code">106</field>
+		</record>
+		<record id="sim_category_103" model="dth.kho.sim.category">
+			<field name="name">Sim Tứ Quý Giữa</field>
+			<field name="code">103</field>
+		</record>
+		<record id="sim_category_104" model="dth.kho.sim.category">
+			<field name="name">Sim Ngũ Quý Giữa</field>
+			<field name="code">104</field>
+		</record>
+		<record id="sim_category_105" model="dth.kho.sim.category">
+			<field name="name">Sim Lục Quý Giữa</field>
+			<field name="code">105</field>
+		</record>
+		<record id="sim_category_110" model="dth.kho.sim.category">
+			<field name="name">Sim hợp mệnh Thủy</field>
+			<field name="code">110</field>
+		</record>
+		<record id="sim_category_111" model="dth.kho.sim.category">
+			<field name="name">Sim hợp mệnh Hỏa</field>
+			<field name="code">111</field>
+		</record>
+		<record id="sim_category_112" model="dth.kho.sim.category">
+			<field name="name">Sim hợp mệnh Mộc</field>
+			<field name="code">112</field>
+		</record>
+		<record id="sim_category_113" model="dth.kho.sim.category">
+			<field name="name">Sim hợp mệnh Thổ</field>
+			<field name="code">113</field>
+		</record>
+		<record id="sim_category_114" model="dth.kho.sim.category">
+			<field name="name">Sim hợp mệnh Kim</field>
+			<field name="code">114</field>
+		</record>
+		
+		<record id="sim_category_115" model="dth.kho.sim.category">
+			<field name="name">Sim Đại Cát</field>
+			<field name="code">115</field>
+		</record>
+		<record id="sim_category_116" model="dth.kho.sim.category">
+			<field name="name">Sim Cát</field>
+			<field name="code">116</field>
+		</record>
+		<record id="sim_category_117" model="dth.kho.sim.category">
+			<field name="name">Sim Bình</field>
+			<field name="code">117</field>
+		</record>
+		<record id="sim_category_118" model="dth.kho.sim.category">
+			<field name="name">Sim Hung</field>
+			<field name="code">118</field>
+		</record>
+		<record id="sim_category_119" model="dth.kho.sim.category">
+			<field name="name">Sim Đại Hung</field>
+			<field name="code">119</field>
+		</record>
+		<record id="sim_category_120" model="dth.kho.sim.category">
+			<field name="name">Sim Kép</field>
+			<field name="code">120</field>
+		</record>
+		<record id="sim_category_121" model="dth.kho.sim.category">
+			<field name="name">Sim Kép 3</field>
+			<field name="code">121</field>
+		</record>
+		<record id="sim_category_122" model="dth.kho.sim.category">
+			<field name="name">Sim Kép 4</field>
+			<field name="code">122</field>
+		</record>
+		<record id="sim_category_123" model="dth.kho.sim.category">
+			<field name="name">Sim Lặp</field>
+			<field name="code">123</field>
+		</record>
+		<record id="sim_category_124" model="dth.kho.sim.category">
+			<field name="name">Sim Lặp 3</field>
+			<field name="code">124</field>
+		</record>
+		<record id="sim_category_125" model="dth.kho.sim.category">
+			<field name="name">Sim Lặp 4</field>
+			<field name="code">125</field>
+		</record>
+		<record id="sim_category_200" model="dth.kho.sim.category">
+			<field name="name">Sim trả góp</field>
+			<field name="code">200</field>
+		</record>
+	</data>
+</odoo>

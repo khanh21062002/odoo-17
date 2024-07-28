@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_configuration_satellite_web_form" model="ir.ui.view">
+            <field name="name">configuration.satellite.web.form</field>
+            <field name="model">dth.kho.configuration.satellite.web</field>
+            <field name="arch" type="xml">
+                <form string="Cấu hình web vệ tinh" duplicate="0">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                            <separator string="1. Cấu hình chung"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="configuration_type" placeholder="Chọn loại cấu hình"/>
+                                <field name="code_configuration_type" placeholder="Nhập các mã kho"/>
+                                <field name="information_sim" widget="many2many_tags" placeholder="Chọn thông tin"/>
+                                <separator string="2. Cấu hình kho"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Thông tin cấu hình kho">
+                                <field name="configuration_repository_id" label="0">
+                                    <tree string="Mã kho" editable="bottom" create="true" class="configuration_repository_id">
+                                        <field name="sim_maker_id"/>
+                                        <field name="priority_point"/>
+                                        <field name="promotion"/>
+                                        <field name="present"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_configuration_satellite_web_tree" model="ir.ui.view">
+            <field name="name">configuration.satellite.web.tree</field>
+            <field name="model">dth.kho.configuration.satellite.web</field>
+            <field name="arch" type="xml">
+                <tree string="Cấu hình web vệ tinh" sample="1" export_xlsx="0">
+                    <field name="name"/>
+                    <field name="configuration_type"/>
+                    <field name="information_sim"/>
+                    <field name="configuration_repository_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_configuration_satellite_web_filter" model="ir.ui.view">
+            <field name="name">configuration.satellite.web.search</field>
+            <field name="model">dth.kho.configuration.satellite.web</field>
+            <field name="arch" type="xml">
+                <search string="Cấu hình web vệ tinh">
+                    <field name="name" string="Tên DB"/>
+                    <field name="configuration_type" string="Loại cấu hình"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tên DB" name="group_name" domain="[]" context="{'group_by': 'name'}"/>
+                        <filter string="Loại cấu hình" name="group_configuration_type" domain="[]" context="{'group_by': 'configuration_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_configuration_satellite_web" model="ir.actions.act_window">
+            <field name="name">Cấu hình web vệ tinh</field>
+            <field name="res_model">dth.kho.configuration.satellite.web</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_configuration_satellite_web_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một Cấu hình web vệ tinh.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

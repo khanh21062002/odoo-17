@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-inherit="web.ListRenderer" t-inherit-mode="extension">
+        <xpath expr="//table[@t-ref='table']" position="after">
+        	<div class="copy-board-container">
+	            <button type="button" class="copy_board_close btn" onclick="document.querySelector('.copy-board-container').style.display = 'none'; document.querySelector('.copy-board').value = '';">
+	                <i class="oi oi-close"/>
+	            </button>
+	            <div>
+	                <textarea class="copy-board" id="copy_board"/>
+	            </div>
+	        </div>
+        </xpath>
+    </t>
+
+</templates>

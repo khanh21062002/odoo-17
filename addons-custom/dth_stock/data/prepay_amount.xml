@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="prepay_amount_20" model="dth.kho.prepay.amount">
+			<field name="name">20%</field>
+		</record>
+		<record id="prepay_amount_30" model="dth.kho.prepay.amount">
+			<field name="name">30%</field>
+		</record>
+		<record id="prepay_amount_40" model="dth.kho.prepay.amount">
+			<field name="name">40%</field>
+		</record>
+		<record id="prepay_amount_50" model="dth.kho.prepay.amount">
+			<field name="name">50%</field>
+		</record>
+		<record id="prepay_amount_60" model="dth.kho.prepay.amount">
+			<field name="name">60%</field>
+		</record>
+		<record id="prepay_amount_70" model="dth.kho.prepay.amount">
+			<field name="name">70%</field>
+		</record>
+	</data>
+</odoo>

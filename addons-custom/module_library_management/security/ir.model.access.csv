@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+module_library_management.access_library_student,access_library_student,module_library_management.model_library_student,base.group_user,1,1,1,1
+module_library_management.access_library_teacher,access_library_teacher,module_library_management.model_library_teacher,base.group_user,1,1,1,1
+module_library_management.access_library_book,access_library_book,module_library_management.model_library_book,base.group_user,1,1,1,1
+module_library_management.access_library_computer,access_library_computer,module_library_management.model_library_computer,base.group_user,1,1,1,1

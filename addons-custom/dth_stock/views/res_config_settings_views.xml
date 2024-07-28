@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.stock</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Kho" string="Kho" name="dth_stock" groups="dth_stock.group_stock_manager">
+                    <block title="Thợ sim">
+                        <setting help="Khoảng thời gian (tính theo ngày) giữa 2 kỳ đánh giá thợ sim của một người dùng. Nếu thiết lập giá trị bằng 0, người dùng có thể đánh giá bất kỳ lúc nào.">
+                            <field name="rating_interval_days" class="w-25"/><span>Ngày</span>
+                        </setting>
+                    </block>
+                    <block title="Up bảng">
+                        <setting help="Những người dùng sẽ nhận được thông báo trong các trường hợp: bảng số được up tự động và bảng số được xử lý xong và up vào kho thành công.">
+                            <field name="upload_sim_noti_user_ids" widget="many2many_tags" class="w-100"/>
+                        </setting>
+                        <setting help="Email sẽ nhận yêu cầu up bảng từ các thợ sim gửi đến.">
+                            <field name="upload_received_email" class="w-100"/>
+                        </setting>
+                    </block>
+                    <block title="Data pipeline">
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % số sim mới >= x% thì Data pipeline cảnh báo là bất thường">
+                            <field name="new_sim_number" widget="percentage"/>
+                        </setting>
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % số sim đã bán (số sim ở bảng cũ của cùng thợ đó có nhưng bảng đang up không có)  >= x% thì Data pipeline cảnh báo là bất thường">
+                            <field name="sold_sim_number" widget="percentage"/>
+                        </setting>
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % giá bán của 1 số sim tăng  >= x% so với bảng cũ của cùng thợ đó thì Data pipeline cảnh báo là bất thường">
+                            <field name="selling_price_increased" widget="percentage"/>
+                        </setting>
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % giá bán của 1 số sim giảm >= x%  so với bảng cũ của cùng thợ đó thì Data pipeline cảnh báo là bất thường">
+                            <field name="selling_price_decreased" widget="percentage"/>
+                        </setting>
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % giá thu của 1 số sim tăng  >= x%  so với bảng cũ của cùng thợ đó thì Data pipeline cảnh báo là bất thường">
+                            <field name="revenue_increases" widget="percentage"/>
+                        </setting>
+                        <setting help="Người sử dụng nhập số x (%) (chỉ nhập số, hệ thống auto hiển thị thành x%. Khi % giá thu của 1 số sim giảm  >= x%  so với bảng cũ của cùng thợ đó thì Data pipeline cảnh báo là bất thường">
+                            <field name="revenue_decreased" widget="percentage"/>
+                        </setting>
+                    </block>
+
+                    <block title="Danh sách nháy máy">
+                        <setting help="Chọn loại kho hoặc nhập mã kho" class="w-100">
+                            <field name="warehouse_type" class="w-25" placeholder="Loại kho"/>
+                            <field name="sim_maker_ids_domain" invisible="True"/>
+                            <field name="sim_maker_ids"  widget="many2many_tags" domain="sim_maker_ids_domain" class="flash_list_sim_maker_ids w-75" placeholder="Nhập mã kho"/>
+                        </setting>
+                        <setting>
+                        </setting>
+                        <setting class="w-100" help="Nhập số ngày số sim được up mới tính theo thời điểm call API lấy danh sách nháy máy">
+                            <field name="uptime" placeholder="Nhập số ngày số up mới"/>
+                        </setting>
+                        <setting help="Nhập khoảng giá sim">
+                        <label for="min_price" string="Theo khoảng giá sim"/>
+                            <div>Từ (Giá min)</div>
+                            <field name="combobox_min_price" placeholder="Từ"/>
+                            <field name="min_price" placeholder="Giá min"/>
+                            <div>Đến (Giá max)</div>
+                            <field name="combobox_max_price" placeholder="Đến"/>
+                            <field name="max_price" placeholder="Giá max"/>
+                        </setting>
+                        <setting class="w-100">
+                            <field name="according_network"  widget="many2many_tags" class="flash_list_according_network w-100" placeholder="Chọn nhà mạng"/>
+                        </setting>
+                        <setting class="w-100">
+                            <field name="by_sim_type"  widget="many2many_tags" class="flash_list_by_sim_type w-100" placeholder="Chọn loại sim"/>
+                        </setting>
+                    </block>
+
+                    <block title="API và Kafka">
+                        <setting class="w-100">
+                            <field name="url_kafka_bootstrap_servers" placeholder="Nhập kafka bootstrap servers"/>
+                        </setting>
+                        <setting class="w-100">
+                            <field name="url_api_up_file" placeholder="Nhập URL API Up File"/>
+                        </setting>
+                        <setting class="w-100">
+                            <field name="url_api_calculates_collection_price" placeholder="Nhập URL API tính giá thu"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'dth_stock', 'bin_size': False}</field>
+    </record>
+
+</odoo>

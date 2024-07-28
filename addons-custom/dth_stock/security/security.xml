@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<record model="ir.module.category" id="module_category_dth_stock">
+	    <field name="name">Kho STL</field>
+	    <field name="sequence">10</field>
+	</record>
+
+    <record id="group_sale_person" model="res.groups">
+        <field name="name">Nhân viên bán hàng</field>
+        <field name="category_id" ref="module_category_dth_stock"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_accountant" model="res.groups">
+        <field name="name">Kế toán viên</field>
+        <field name="category_id" ref="module_category_dth_stock"/>
+        <field name="implied_ids" eval="[(4, ref('group_sale_person'))]"/>
+    </record>
+    
+    <record id="group_accountant_manager" model="res.groups">
+        <field name="name">Kế toán trưởng</field>
+        <field name="category_id" ref="module_category_dth_stock"/>
+        <field name="implied_ids" eval="[(4, ref('group_accountant'))]"/>
+    </record>
+    
+    <record id="group_stock_manager" model="res.groups">
+        <field name="name">Quản lý kho</field>
+        <field name="category_id" ref="module_category_dth_stock"/>
+        <field name="implied_ids" eval="[(4, ref('group_accountant_manager'))]"/>
+    </record>
+    
+    <record id="group_stock_admin" model="res.groups">
+        <field name="name">Admin kho</field>
+        <field name="category_id" ref="module_category_dth_stock"/>
+        <field name="implied_ids" eval="[(4, ref('group_stock_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+<data noupdate="1">
+	<!-- Rules -->
+    <record id="comment_history_sale_person_rule" model="ir.rule">
+        <field name="name">Lịch sử comment - Nhân viên bán hàng</field>
+        <field name="model_id" ref="model_dth_kho_comment_history"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_sale_person')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="0" name="perm_write" />
+		<field eval="0" name="perm_unlink" />
+		<field eval="0" name="perm_create" />
+    </record>
+    
+    <record id="comment_history_stock_manager_rule" model="ir.rule">
+        <field name="name">Lịch sử comment - Quản lý kho</field>
+        <field name="model_id" ref="model_dth_kho_comment_history"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_stock_manager')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="0" name="perm_write" />
+		<field eval="0" name="perm_unlink" />
+		<field eval="0" name="perm_create" />
+    </record>
+    
+    <record id="sim_maker_sale_person_rule" model="ir.rule">
+        <field name="name">Thợ sim - Nhân viên bán hàng</field>
+        <field name="model_id" ref="model_dth_kho_sim_maker"/>
+        <field name="domain_force">[('peel_wh', '=', False), ('id', 'in', user.allow_sim_maker_ids.ids)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_sale_person')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+    
+    <record id="sim_maker_stock_manager_rule" model="ir.rule">
+        <field name="name">Thợ sim - Quản lý kho</field>
+        <field name="model_id" ref="model_dth_kho_sim_maker"/>
+        <field name="domain_force">[('id', 'in', user.allow_sim_maker_ids.ids)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_stock_manager')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+    
+    <record id="sim_maker_stock_admin_rule" model="ir.rule">
+        <field name="name">Thợ sim - Admin kho</field>
+        <field name="model_id" ref="model_dth_kho_sim_maker"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_stock_admin')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+    
+    <record id="sim_warehouse_sale_person_rule" model="ir.rule">
+        <field name="name">Kho sim - Nhân viên bán hàng</field>
+        <field name="model_id" ref="model_dth_kho_sim_warehouse"/>
+        <field name="domain_force">[('sim_maker_id.peel_wh', '=', False), ('sim_maker_id.id', 'in', user.allow_sim_maker_ids.ids)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_sale_person')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+    
+    <record id="sim_warehouse_stock_manager_rule" model="ir.rule">
+        <field name="name">Kho sim - Quản lý kho</field>
+        <field name="model_id" ref="model_dth_kho_sim_warehouse"/>
+        <field name="domain_force">[('sim_maker_id.id', 'in', user.allow_sim_maker_ids.ids)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_stock_manager')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+    
+    <record id="sim_warehouse_stock_admin_rule" model="ir.rule">
+        <field name="name">Kho sim - Admin kho</field>
+        <field name="model_id" ref="model_dth_kho_sim_warehouse"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(6,0,[ref('dth_stock.group_stock_manager')])]"/>
+        <field eval="1" name="perm_read" />
+		<field eval="1" name="perm_write" />
+		<field eval="1" name="perm_unlink" />
+		<field eval="1" name="perm_create" />
+    </record>
+</data>
+
+</odoo>

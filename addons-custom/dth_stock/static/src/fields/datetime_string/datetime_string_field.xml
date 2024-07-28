@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="dth_stock.DatetimeStringField">
+    	<div style="font-weight: bold"><RelativeTime datetime="this.props.record.data[this.props.name]"/></div>
+        <div>
+            <t t-esc="datetime"/>
+        </div>
+        
+    </t>
+
+</templates>

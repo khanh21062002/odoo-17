@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+	<t t-inherit="web.SearchBar" t-inherit-mode="extension">
+		<xpath expr="//div[hasclass('o_cp_searchview')]" position="before">
+			<div style="display: none">
+				<input class="o_favorite_tab_name" type="text"/>
+			</div>
+		</xpath>
+	</t>
+	
+    <t t-inherit="web.SearchBarMenu" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_filter_menu')]" position="replace">
+        	<div class="o_dropdown_container o_filter_menu w-100 w-lg-auto px-3 mb-4 mb-lg-0 border-end">
+                <div class="px-3 fs-5 mb-2">
+                    <i class="me-2 text-primary" t-att-class="facet_icons.filter"/>
+                    <h5 class="o_dropdown_title d-inline">Filters</h5>
+                </div>
+                <t t-if="this.env.searchModel.resModel == 'dth.kho.sim.warehouse'">
+	                <DropdownItem class="'o_menu_item o_add_custom_filter'" onSelected.bind="onAddCustomFilterClick">Add Custom Filter</DropdownItem>
+	                <t t-if="filterItems.length">
+	                    <div role="separator" class="dropdown-divider"/>
+	                </t>
+	                <t t-set="currentGroup" t-value="null"/>
+	                <t t-set="filterItems1" t-value="filterItems.slice(0, 23)"/>
+	                <t t-set="filterItems2" t-value="filterItems.slice(23, 35)"/>
+	                <t t-set="filterItems3" t-value="filterItems.slice(35, 50)"/>
+	                <t t-set="filterItems4" t-value="filterItems.slice(50, 70)"/>
+	                <div class="filter-container">
+						<div class="filter-column">
+							<t t-foreach="filterItems1" t-as="item" t-key="item.id">
+			                    <t t-if="currentGroup !== null and currentGroup !== item.groupNumber">
+			                        <div class="dropdown-divider" role="separator"/>
+			                    </t>
+			                    <t t-if="item.options">
+			                        <AccordionItem class="'text-truncate'" description="item.description" selected="item.isActive">
+			                            <t t-set="subGroup" t-value="null"/>
+			                            <t t-foreach="item.options" t-as="option" t-key="option.id">
+			                                <t t-if="subGroup !== null and subGroup !== option.groupNumber">
+			                                    <div class="dropdown-divider" role="separator"/>
+			                                </t>
+			                                <CheckboxItem class="{ o_item_option: true, selected: option.isActive }"
+			                                                    t-esc="option.description"
+			                                                    checked="option.isActive"
+			                                                    parentClosingMode="'none'"
+			                                                    onSelected="() => this.onFilterSelected({ itemId: item.id, optionId: option.id })"
+			                                />
+			                                <t t-set="subGroup" t-value="option.groupNumber"/>
+			                            </t>
+			                        </AccordionItem>
+			                    </t>
+			                    <t t-else="">
+			                        <CheckboxItem class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
+			                                            checked="item.isActive"
+			                                            parentClosingMode="'none'"
+			                                            t-esc="item.description"
+			                                            onSelected="() => this.onFilterSelected({ itemId: item.id })"
+			                        />
+			                    </t>
+			                    <t t-set="currentGroup" t-value="item.groupNumber"/>
+			                </t>
+						</div>
+						<div class="filter-column">
+							<t t-foreach="filterItems2" t-as="item" t-key="item.id">
+			                    <t t-if="currentGroup !== null and currentGroup !== item.groupNumber">
+			                        <div class="dropdown-divider" role="separator"/>
+			                    </t>
+			                    <t t-if="item.options">
+			                        <AccordionItem class="'text-truncate'" description="item.description" selected="item.isActive">
+			                            <t t-set="subGroup" t-value="null"/>
+			                            <t t-foreach="item.options" t-as="option" t-key="option.id">
+			                                <t t-if="subGroup !== null and subGroup !== option.groupNumber">
+			                                    <div class="dropdown-divider" role="separator"/>
+			                                </t>
+			                                <CheckboxItem class="{ o_item_option: true, selected: option.isActive }"
+			                                                    t-esc="option.description"
+			                                                    checked="option.isActive"
+			                                                    parentClosingMode="'none'"
+			                                                    onSelected="() => this.onFilterSelected({ itemId: item.id, optionId: option.id })"
+			                                />
+			                                <t t-set="subGroup" t-value="option.groupNumber"/>
+			                            </t>
+			                        </AccordionItem>
+			                    </t>
+			                    <t t-else="">
+			                        <CheckboxItem class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
+			                                            checked="item.isActive"
+			                                            parentClosingMode="'none'"
+			                                            t-esc="item.description"
+			                                            onSelected="() => this.onFilterSelected({ itemId: item.id })"
+			                        />
+			                    </t>
+			                    <t t-set="currentGroup" t-value="item.groupNumber"/>
+			                </t>
+						</div>
+						<div class="filter-column">
+							<t t-foreach="filterItems3" t-as="item" t-key="item.id">
+			                    <t t-if="currentGroup !== null and currentGroup !== item.groupNumber">
+			                        <div class="dropdown-divider" role="separator"/>
+			                    </t>
+			                    <t t-if="item.options">
+			                        <AccordionItem class="'text-truncate'" description="item.description" selected="item.isActive">
+			                            <t t-set="subGroup" t-value="null"/>
+			                            <t t-foreach="item.options" t-as="option" t-key="option.id">
+			                                <t t-if="subGroup !== null and subGroup !== option.groupNumber">
+			                                    <div class="dropdown-divider" role="separator"/>
+			                                </t>
+			                                <CheckboxItem class="{ o_item_option: true, selected: option.isActive }"
+			                                                    t-esc="option.description"
+			                                                    checked="option.isActive"
+			                                                    parentClosingMode="'none'"
+			                                                    onSelected="() => this.onFilterSelected({ itemId: item.id, optionId: option.id })"
+			                                />
+			                                <t t-set="subGroup" t-value="option.groupNumber"/>
+			                            </t>
+			                        </AccordionItem>
+			                    </t>
+			                    <t t-else="">
+			                        <CheckboxItem class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
+			                                            checked="item.isActive"
+			                                            parentClosingMode="'none'"
+			                                            t-esc="item.description"
+			                                            onSelected="() => this.onFilterSelected({ itemId: item.id })"
+			                        />
+			                    </t>
+			                    <t t-set="currentGroup" t-value="item.groupNumber"/>
+			                </t>
+						</div>
+						<div class="filter-column">
+							<t t-foreach="filterItems4" t-as="item" t-key="item.id">
+			                    <t t-if="currentGroup !== null and currentGroup !== item.groupNumber">
+			                        <div class="dropdown-divider" role="separator"/>
+			                    </t>
+			                    <t t-if="item.options">
+			                        <AccordionItem class="'text-truncate'" description="item.description" selected="item.isActive">
+			                            <t t-set="subGroup" t-value="null"/>
+			                            <t t-foreach="item.options" t-as="option" t-key="option.id">
+			                                <t t-if="subGroup !== null and subGroup !== option.groupNumber">
+			                                    <div class="dropdown-divider" role="separator"/>
+			                                </t>
+			                                <CheckboxItem class="{ o_item_option: true, selected: option.isActive }"
+			                                                    t-esc="option.description"
+			                                                    checked="option.isActive"
+			                                                    parentClosingMode="'none'"
+			                                                    onSelected="() => this.onFilterSelected({ itemId: item.id, optionId: option.id })"
+			                                />
+			                                <t t-set="subGroup" t-value="option.groupNumber"/>
+			                            </t>
+			                        </AccordionItem>
+			                    </t>
+			                    <t t-else="">
+			                        <CheckboxItem class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
+			                                            checked="item.isActive"
+			                                            parentClosingMode="'none'"
+			                                            t-esc="item.description"
+			                                            onSelected="() => this.onFilterSelected({ itemId: item.id })"
+			                        />
+			                    </t>
+			                    <t t-set="currentGroup" t-value="item.groupNumber"/>
+			                </t>
+						</div>
+					</div>
+                </t>
+                <t t-if="this.env.searchModel.resModel != 'dth.kho.sim.warehouse'">
+					<t t-set="currentGroup" t-value="null"/>
+	                <t t-foreach="filterItems" t-as="item" t-key="item.id">
+	                    <t t-if="currentGroup !== null and currentGroup !== item.groupNumber">
+	                        <div class="dropdown-divider" role="separator"/>
+	                    </t>
+	                    <t t-if="item.options">
+	                        <AccordionItem class="'text-truncate'" description="item.description" selected="item.isActive">
+	                            <t t-set="subGroup" t-value="null"/>
+	                            <t t-foreach="item.options" t-as="option" t-key="option.id">
+	                                <t t-if="subGroup !== null and subGroup !== option.groupNumber">
+	                                    <div class="dropdown-divider" role="separator"/>
+	                                </t>
+	                                <CheckboxItem class="{ o_item_option: true, selected: option.isActive }"
+	                                                    t-esc="option.description"
+	                                                    checked="option.isActive"
+	                                                    parentClosingMode="'none'"
+	                                                    onSelected="() => this.onFilterSelected({ itemId: item.id, optionId: option.id })"
+	                                />
+	                                <t t-set="subGroup" t-value="option.groupNumber"/>
+	                            </t>
+	                        </AccordionItem>
+	                    </t>
+	                    <t t-else="">
+	                        <CheckboxItem class="{ 'o_menu_item text-truncate': true, selected: item.isActive }"
+	                                            checked="item.isActive"
+	                                            parentClosingMode="'none'"
+	                                            t-esc="item.description"
+	                                            onSelected="() => this.onFilterSelected({ itemId: item.id })"
+	                        />
+	                    </t>
+	                    <t t-set="currentGroup" t-value="item.groupNumber"/>
+	                </t>
+	                <t t-if="filterItems.length">
+                    	<div role="separator" class="dropdown-divider"/>
+                	</t>
+                	<DropdownItem class="'o_menu_item o_add_custom_filter'" onSelected.bind="onAddCustomFilterClick">Add Custom Filter</DropdownItem>
+				</t>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

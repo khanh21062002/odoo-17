@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="report_competitor_comparison_tree" model="ir.ui.view">
+            <field name="name">report.competitor.comparison.tree</field>
+            <field name="model">dth.kho.report.competitor.comparison</field>
+            <field name="arch" type="xml">
+                <tree string="Báo cáo so sánh đối thủ" sample="1" create="0" edit="0">
+                    <field name="sim_maker_id"/>
+                    <field name="telecom_supplier_id"/>
+                    <field name="price_range"/>
+                    <field name="category_ids"/>
+                    <field name="sim_count"/>
+                    <field name="avg_price" widget="monetary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="report_competitor_comparison_filter" model="ir.ui.view">
+            <field name="name">report.competitor.comparison.search</field>
+            <field name="model">dth.kho.report.competitor.comparison</field>
+            <field name="arch" type="xml">
+                <search string="Báo cáo so sánh đối thủ">
+                    <field name="sim_maker_id" string="Thợ sim"/>
+                    <field name="telecom_supplier_id" string="Nhà mạng"/>
+                    <field name="category_ids" string="Loại sim"/>
+                    <separator/>
+                    <filter string="Thời gian tra cứu" name="filter_create_date" date="create_date"/>
+                    <separator/>
+                    <filter name="filter_telcom_viettel" string="Viettel" domain="[('telecom_supplier_code', '=', 10)]"/>
+                    <filter name="filter_telcom_vinaphone" string="Vinaphone" domain="[('telecom_supplier_code', '=', 11)]"/>
+                    <filter name="filter_telcom_mobiphone" string="Mobifone" domain="[('telecom_supplier_code', '=', 12)]"/>
+                    <filter name="filter_telcom_vietnamobile" string="Vietnamobile" domain="[('telecom_supplier_code', '=', 13)]"/>
+                    <filter name="filter_telcom_itel" string="Itel" domain="[('telecom_supplier_code', '=', 14)]"/>
+                    <filter name="filter_telcom_gmobile" string="Gmobile" domain="[('telecom_supplier_code', '=', 15)]"/>
+                    <filter name="filter_telcom_wintel" string="Wintel" domain="[('telecom_supplier_code', '=', 16)]"/>
+                    <separator/>
+                    <filter name="filter_0_500000" string="Nhỏ hơn 500 K" domain="[('price_range', '=', '0-500000')]"/>
+                    <filter name="filter_500000_1000000" string="500 - 1 Triệu" domain="[('price_range', '=', '500000-1000000')]"/>
+                    <filter name="filter_1000000_3000000" string="1 - 3 Triệu" domain="[('price_range', '=', '1000000-3000000')]"/>
+                    <filter name="filter_3000000_5000000" string="3 - 5 Triệu" domain="[('price_range', '=', '3000000-5000000')]"/>
+                    <filter name="filter_5000000-10000000" string="5 - 10 Triệu" domain="[('price_range', '=', '5000000-10000000')]"/>
+                    <filter name="filter_10000000_30000000" string="10 - 30 Triệu" domain="[('price_range', '=', '10000000-30000000')]"/>
+                    <filter name="filter_30000000_50000000" string="30 - 50 Triệu" domain="[('price_range', '=', '30000000-50000000')]"/>
+                    <filter name="filter_50000000_80000000" string="50 - 80 Triệu" domain="[('price_range', '=', '50000000-80000000')]"/>
+                    <filter name="filter_80000000-100000000" string="80 - 100 Triệu" domain="[('price_range', '=', '80000000-100000000')]"/>
+                    <filter name="filter_100000000_150000000" string="100 - 150 Triệu" domain="[('price_range', '=', '100000000-150000000')]"/>
+                    <filter name="filter_150000000_200000000" string="150 - 200 Triệu" domain="[('price_range', '=', '150000000-200000000')]"/>
+                    <filter name="filter_200000000_300000000" string="200 - 300 Triệu" domain="[('price_range', '=', '200000000-300000000')]"/>
+                    <filter name="filter_300000000_500000000" string="300 - 500 Triệu" domain="[('price_range', '=', '300000000-500000000')]"/>
+                    <filter name="filter_500000000_1000000000" string="500 - 1 Tỷ" domain="[('price_range', '=', '500000000-1000000000')]"/>
+                    <filter name="filter_1000000000_10000000000000" string="Lớn hơn 1 Tỷ" domain="[('price_range', '=', '1000000000-10000000000000')]"/>
+                    <separator/>
+                    <filter name="filter_luc_quy" string="Lục quý" domain="[('category_ids.code', '=', 100)]"/>
+                    <filter name="filter_luc_quy_giua" string="Lục quý giữa" domain="[('category_ids.code', '=', 105)]"/>
+                    <filter name="filter_ngu_quy" string="Ngũ quý" domain="[('category_ids.code', '=', 99)]"/>
+                    <filter name="filter_ngu_quy_giua" string="Ngũ quý giữa" domain="[('category_ids.code', '=', 104)]"/>
+                    <filter name="filter_tu_quy" string="Tứ quý" domain="[('category_ids.code', '=', 68)]"/>
+                    <filter name="filter_tu_quy_giua" string="Tứ quý giữa" domain="[('category_ids.code', '=', 103)]"/>
+                    <filter name="filter_tam_hoa" string="Tam hoa" domain="[('category_ids.code', '=', 80)]"/>
+                    <filter name="filter_tam_hoa_kep" string="Tam hoa kép" domain="[('category_ids.code', '=', 102)]"/>
+                    <filter name="filter_sim_vip" string="Sim VIP" domain="[('category_ids.code', '=', 82)]"/>
+                    <filter name="filter_de_nho" string="Dễ nhớ" domain="[('category_ids.code', '=', 76)]"/>
+                    <filter name="filter_tien_len" string="Tiến lên" domain="[('category_ids.code', '=', 81)]"/>
+                    <filter name="filter_dau_so_co" string="Đầu số cổ" domain="[('category_ids.code', '=', 106)]"/>
+                    <filter name="filter_so_doc" string="Số độc" domain="[('category_ids.code', '=', 78)]"/>
+                    <filter name="filter_ganh_dao" string="Gánh đảo" domain="[('category_ids.code', '=', 79)]"/>
+                    <filter name="filter_sim_doi" string="Sim Đôi" domain="[('category_ids.code', '=', 71)]"/>
+                    <filter name="filter_sim_binh" string="Sim Bình" domain="[('category_ids.code', '=', 117)]"/>
+                    <filter name="filter_lap_2" string="Lặp 2" domain="[('category_ids.code', '=', 123)]"/>
+                    <filter name="filter_lap_3" string="Lặp 3" domain="[('category_ids.code', '=', 124)]"/>
+                    <filter name="filter_lap_4" string="Lặp 4" domain="[('category_ids.code', '=', 125)]"/>
+                    <filter name="filter_kep_2" string="Kép 2" domain="[('category_ids.code', '=', 120)]"/>
+                    <filter name="filter_kep_3" string="Kép 3" domain="[('category_ids.code', '=', 121)]"/>
+                    <filter name="filter_kep_4" string="Kép 4" domain="[('category_ids.code', '=', 122)]"/>
+                    <filter name="filter_loc_phat" string="Lộc phát" domain="[('category_ids.code', '=', 73)]"/>
+                    <filter name="filter_than_tai" string="Thần tài" domain="[('category_ids.code', '=', 72)]"/>
+                    <filter name="filter_ong_dia" string="Ông địa" domain="[('category_ids.code', '=', 70)]"/>
+                    <filter name="filter_dai_cat" string="Đại cát" domain="[('category_ids.code', '=', 115)]"/>
+                    <filter name="filter_taxi" string="Sim Taxi/Hotline" domain="[('category_ids.code', '=', 74)]"/>
+                    <filter name="filter_gia_re" string="Giá rẻ" domain="[('category_ids.code', '=', 10)]"/>
+                    <filter name="filter_khuyen_mai" string="Khuyến mãi" domain="[('category_ids.code', '=', 10)]"/>
+                    <filter name="filter_tra_gop" string="Trả góp" domain="[('category_ids.code', '=', 200)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Thợ sim" name="group_sim_maker_id" domain="[]" context="{'group_by': 'sim_maker_id'}"/>
+                        <filter string="Nhà mạng" name="group_telecom_supplier_id" domain="[]" context="{'group_by': 'telecom_supplier_id'}"/>
+                        <filter string="Khoảng giá" name="group_price_range" domain="[]" context="{'group_by': 'price_range'}"/>
+                        <filter string="Loại sim" name="group_category_ids" domain="[]" context="{'group_by': 'category_ids'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_report_competitor_comparison" model="ir.actions.act_window">
+            <field name="name">Báo cáo so sánh đối thủ</field>
+            <field name="res_model">dth.kho.report.competitor.comparison</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="report_competitor_comparison_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo mới Báo cáo so sánh đối thủ
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

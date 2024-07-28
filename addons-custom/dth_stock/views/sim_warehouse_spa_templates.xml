@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sim_warehouse_spa" name="Sim Warehouse SPA">
+        <t t-call="web.layout">
+            <div id="wrap" style="width: 100%">
+                <div id="root"></div>
+            </div>
+            <t t-call-assets="dth_stock.assets_backend"/>
+        </t>
+    </template>
+</odoo>

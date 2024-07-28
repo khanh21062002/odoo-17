@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_sim_maker_form" model="ir.ui.view">
+            <field name="name">sim.maker.form</field>
+            <field name="model">dth.kho.sim.maker</field>
+            <field name="arch" type="xml">
+                <form string="Thợ sim" duplicate="0">
+					<header invisible="not id">
+						<button name="upload_file" string="Up bảng" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                        	<group>
+                        		<field name="name" placeholder="Nhập tên thợ"/>
+                        		<field name="phone_number" placeholder="0912345678&#10;0912345679"/>
+                        		<field name="email" placeholder="example1@gmail.com&#10;example2@gmail.com"/>
+                        		<field name="hotline_debt" placeholder="19001188&#10;19001133"/>
+                        	</group>
+                        	<group>
+                        		<field name="code" placeholder="Nhập mã thợ" readonly="id != False"/>
+                        		<field name="hotline_check" placeholder="19001188&#10;19001133"/>
+                        		<field name="hotline_make_sim" placeholder="19001188&#10;19001133"/>
+                        		<field name="hotline_feedback" placeholder="19001188&#10;19001133"/>
+                        	</group>
+                        </group>
+                        <group>
+                        	<group>
+                        		<field name="province_id" placeholder="Chọn tỉnh thành" options="{'no_create': True}"/>
+                        		<field name="district_id" placeholder="Chọn quận/huyện" options="{'no_create': True}"/>
+                        		<field name="ward_id" placeholder="Chọn phường/xã" options="{'no_create': True}"/>
+                        		<field name="address" placeholder="Nhập địa chỉ"/>
+                        		<field name="dth_wh" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="mapping_wh" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="auto_sms" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="keep_price" widget="boolean_toggle" options="{'autosave': False}"/>
+                        	</group>
+                        	<group>
+                        		<field name="website" placeholder="Nhập đường dẫn website" widget="url"/>
+                        		<field name="facebook" placeholder="https://facebook.com/tho1" widget="url"/>
+                        		<field name="zalo" placeholder="Nhập SĐT đăng ký zalo"/>
+                        		<field name="reponsible_ids" placeholder="Chọn user phụ trách" widget="many2many_tags_avatar" options="{'no_create': True}"/>
+                        		<field name="monopoly_wh" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="priority_wh" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="peel_wh" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="increase_show" widget="boolean_toggle" options="{'autosave': False}"/>
+                        		<field name="sim_visible"/>
+                        	</group>
+                        </group>
+                        <group>
+                        	<field name="note" placeholder="Nhập ghi chú"/>
+                        </group>
+                        <notebook>
+                            <page string="Thông tin bán hàng" name="sale_info">
+                                <group>
+                                    <group>
+                                        <field name="work_time" placeholder="hh:mm - hh:mm"/>
+                                        <field name="installment" widget="boolean_toggle" options="{'autosave': False}"/>
+                                    </group>
+                                    <group>
+                                        <field name="self_cod" widget="boolean_toggle" options="{'autosave': False}"/>
+                                        <field name="debt" widget="boolean_toggle" options="{'autosave': False}"/>
+                                    </group>
+                                </group>
+                                <separator string="Chiết khấu"/>
+                                <div name="warning_max_price" class="alert alert-warning" role="alert">
+									<span>(*) Giá max là vô hạn khi Giá max = 0đ</span>
+								</div>
+                                <field name="discount_ids" label="0">
+                                	<tree string="Chiết khấu" editable="bottom">
+                                		<field name="currency_id" column_invisible="1"/>
+                                		<field name="min_amount"/>
+                                		<field name="max_amount"/>
+                                		<field name="discount" widget="percentage" placeholder="Nhập chiết khấu"/>
+                                	</tree>
+                                </field>
+                                <separator string="Hỗ trợ"/>
+                                <div name="warning_max_price" class="alert alert-warning" role="alert">
+									<span>(*) Giá max là vô hạn khi Giá max = 0đ</span>
+								</div>
+                                <field name="support_ids" label="0">
+                                	<tree string="Hỗ trợ" editable="bottom">
+                                		<field name="currency_id" column_invisible="1"/>
+                                		<field name="support_type"/>
+                                		<field name="min_amount"/>
+                                		<field name="max_amount"/>
+                                		<field name="support_amount_type"/>
+                                		<field name="support_amount" placeholder="Nhập mức hỗ trợ" invisible="support_amount_type=='percent'" required="support_amount_type=='fix'"/>
+                                		<field name="support_percent" widget="percentage" placeholder="Nhập mức hỗ trợ" invisible="support_amount_type=='fix'" required="support_amount_type=='percent'"/>
+                                	</tree>
+                                </field>
+                                <separator string="Trả góp" invisible="installment == False"/>
+                                <div name="warning_max_price" class="alert alert-warning" role="alert" invisible="installment == False">
+									<span>(*) Giá max là vô hạn khi Giá max = 0đ</span>
+								</div>
+                                <field name="installment_ids" label="0" invisible="installment == False">
+                                	<tree string="Trả góp" editable="bottom">
+                                		<field name="currency_id" column_invisible="1"/>
+                                		<field name="min_amount"/>
+                                		<field name="max_amount"/>
+                                		<field name="rate" widget="percentage"/>
+                                		<field name="prepay_amount_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                                		<field name="period_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_quick_create': True}"/>
+                                	</tree>
+                                </field>
+                            </page>
+                            <page string="Thông tin ngân hàng" name="bank_info">
+                                <field name="bank_account_ids" label="0">
+                                	<tree string="Ngân hàng" editable="bottom">
+                                		<field name="bank" placeholder="Nhập tên ngân hàng"/>
+                                		<field name="account_number" placeholder="Nhập STK ngân hàng"/>
+                                		<field name="account_name" placeholder="NGUYEN VAN A"/>
+                                		<field name="is_default" widget="boolean_toggle" options="{'autosave': False}"/>
+                                	</tree>
+                                </field>
+                            </page>
+<!--                            <page string="Danh sách đánh giá" name="rating_list">-->
+<!--                            	<div style="text-align: center;">-->
+<!--                            		<field name="total_rating" widget="float_priority"/>-->
+<!--                            	</div>-->
+<!--                            	<field name="rating_ids" label="0">-->
+<!--                            		<tree string="Danh sách đánh giá" create="0" edit="0" delete="0" no_open="True">-->
+<!--                            			<field name="create_uid" widget="many2one_avatar_user" string="Người đánh giá"/>-->
+<!--                            			<field name="create_date" string="Ngày đánh giá"/>-->
+<!--                            			<field name="rating" string="Điểm đánh giá" widget="priority" readonly="1"/>-->
+<!--                            			<field name="description" string="Nội dung"/>-->
+<!--                            		</tree>-->
+<!--                            	</field>-->
+<!--                            </page>-->
+                            <page string="Lịch sử up bảng" name="upload_history">
+								<field name="upload_history_done_ids">
+									<tree string="Lịch sử up bảng" create="0" edit="0" delete="0" no_open="True">
+                            			<field name="create_date" string="Thời gian up bảng"/>
+                            			<field name="total_sim"/>
+                            			<field name="abnormal_sim"/>
+                            			<field name="old_sim"/>
+                            			<field name="new_sim"/>
+                            			<field name="sold_sim"/>
+                            			<field name="confirm_date" string="Thời gian hoàn thành"/>
+                            			<field name="type" string="Hình thức"/>
+                            		</tree>
+								</field>
+							</page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sim_maker_tree" model="ir.ui.view">
+            <field name="name">sim.maker.tree</field>
+            <field name="model">dth.kho.sim.maker</field>
+            <field name="arch" type="xml">
+                <tree string="Thợ sim" sample="1" duplicate="0" export_xlsx="0">
+                	<header>
+	                    <button name="download_sim_maker"
+	                            type="object"
+	                            string="Download"
+	                            class="btn-primary" groups="dth_stock.group_accountant_manager"/>
+	                </header>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="contact" string="Liên Hệ"/>
+                    <field name="province_id" string="Tỉnh Thành"/>
+                    <field name="sim_count" string="Số Sim"/>
+                    <field name="sim_sold_count" string="Đã Bán"/>
+                    <field name="write_date" string="Cập Nhật"/>
+                    <field name="write_uid" string="Cập Nhật Bởi" widget="many2one_avatar_user"/>
+                    <field name="priority_wh" string="Ưu Tiên" widget="boolean_toggle_confirm" options="{'field_name': 'priority_wh'}"/>
+                    <field name="increase_show" string="Tăng hiển thị" widget="boolean_toggle_confirm" options="{'field_name': 'increase_show'}"/>
+                    <field name="keep_price" string="Giữ nguyên giá" widget="boolean_toggle_confirm" options="{'field_name': 'keep_price'}"/>
+                    <field name="auto_sms" string="Auto SMS" widget="boolean_toggle_confirm" options="{'field_name': 'auto_sms'}"/>
+                    <field name="monopoly_wh" string="Độc Quyền" widget="boolean_toggle_confirm" options="{'field_name': 'monopoly_wh'}"/>
+<!--                    <field name="total_rating" string="Đánh Giá" widget="float_priority"/>-->
+                    <field name="sim_visible" string="Mức ẩn / hiện" optional="hide"/>
+                    <field name="district_id" string="Quận/Huyện" optional="hide"/>
+                    <field name="ward_id" string="Phường/Xã" optional="hide"/>
+                    <field name="address" string="Địa chỉ" optional="hide"/>
+                    <field name="facebook" string="Facebook" optional="hide"/>
+                    <field name="zalo" string="Zalo" optional="hide"/>
+                    <field name="website" string="Website" optional="hide"/>
+                    <field name="sale_person_id" string="Nhân Viên Kinh Doanh" widget="many2one_avatar_user" optional="hide"/>
+                    <field name="reponsible_ids" string="Users phụ trách" widget="many2many_tags_avatar" optional="hide"/>
+                    <field name="dth_wh" string="Kho Nhà" widget="boolean_toggle_confirm" options="{'field_name': 'dth_wh'}" optional="hide"/>
+                    <field name="mapping_wh" string="Kho Ánh Xạ" widget="boolean_toggle_confirm" options="{'field_name': 'mapping_wh'}" optional="hide"/>
+                    <button name="open_rating" icon="fa-star" type="object" title="Đánh giá chất lượng thợ"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sim_maker_filter" model="ir.ui.view">
+            <field name="name">sim.maker.search</field>
+            <field name="model">dth.kho.sim.maker</field>
+            <field name="arch" type="xml">
+                <search string="Thợ Sim">
+                    <field name="code" string="Mã Thợ"/>
+                    <field name="name" string="Tên Thợ"/>
+                    <field name="phone_number" string="Số điện thoại"/>
+                    <field name="email" string="Email"/>
+                    <field name="zalo" string="Zalo"/>
+                    <field name="facebook" string="Facebook"/>
+                    <field name="reponsible_ids" string="Người phụ trách"/>
+                    <field name="province_id" string="Tỉnh Thành"/>
+                    <field name="district_id" string="Quận/Huyện"/>
+                    <field name="ward_id" string="Phường/Xã"/>
+                    <separator/>
+                    <filter name="filter_dth_wh" string="Kho Nhà" domain="[('dth_wh', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_monopoly_wh" string="Kho Độc Quyền" domain="[('monopoly_wh', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_priority_wh" string="Kho Ưu Tiên" domain="[('priority_wh', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_mapping_wh" string="Kho Ánh Xạ" domain="[('mapping_wh', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_auto_sms" string="Auto SMS" domain="[('auto_sms', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_increase_show" string="Tăng hiển thị (VIP)" domain="[('increase_show', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_keep_price" string="Giữ nguyên giá" domain="[('keep_price', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_self_cod" string="Thợ Tự COD" domain="[('self_cod', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_installment" string="Cho Phép Trả Góp" domain="[('installment', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_debt" string="Làm Công Nợ" domain="[('debt', '=', True)]"/>
+                    <separator/>
+                    <filter name="filter_archived" string="Đã Lưu Trữ" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Tỉnh Thành" name="group_province_id" domain="[]" context="{'group_by': 'province_id'}"/>
+                        <filter string="Quận/Huyện" name="group_district_id" domain="[]" context="{'group_by': 'district_id'}"/>
+                        <filter string="Phường/Xã" name="group_ward_id" domain="[]" context="{'group_by': 'ward_id'}"/>
+                        <filter string="Người phụ trách" name="group_reponsible_ids" domain="[]" context="{'group_by': 'reponsible_ids'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sim_maker" model="ir.actions.act_window">
+            <field name="name">Thợ Sim</field>
+            <field name="res_model">dth.kho.sim.maker</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_sim_maker_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một Thợ Sim.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

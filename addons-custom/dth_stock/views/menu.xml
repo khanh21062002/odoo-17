@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+            id="menu_stock_root"
+            name="Quản lý kho"
+            groups="group_sale_person,group_accountant"
+            web_icon="dth_stock,static/description/icon.png"
+            sequence="185"/>
+
+        <menuitem
+            id="menu_stock_sim_maker"
+            name="Thợ Sim"
+            parent="menu_stock_root"
+            groups="group_stock_manager"
+            action="action_sim_maker"
+            sequence="20"/>
+            
+        <menuitem
+            id="menu_stock_sim_warehouse"
+            name="Kho Sim"
+            parent="menu_stock_root"
+            groups="group_stock_manager"
+            action="action_sim_warehouse"
+            sequence="10"/>
+            
+        <menuitem
+            id="menu_stock_sim_warehouse_spa"
+            name="Tra Số Sim"
+            parent="menu_stock_root"
+            action="action_sim_warehouse_spa"
+            sequence="15"/>
+        
+        <menuitem
+            id="menu_stock_sim_upload_history_root"
+            name="Up bảng"
+            parent="menu_stock_root"
+            groups="group_stock_manager"
+            sequence="25"/>
+        
+        <menuitem
+            id="menu_stock_sim_upload_history"
+            name="Up bảng"
+            parent="menu_stock_sim_upload_history_root"
+            action="action_sim_upload_history"
+            sequence="10"/>
+        
+        <menuitem
+            id="menu_stock_sim_upload_history_to_confirm"
+            name="Up bảng chờ duyệt"
+            parent="menu_stock_sim_upload_history_root"
+            action="action_sim_upload_history_to_confirm"
+            sequence="20"/>
+        
+        <menuitem
+            id="menu_stock_sim_upload_history_done"
+            name="Lịch sử up bảng"
+            parent="menu_stock_sim_upload_history_root"
+            action="action_sim_upload_history_done"
+            sequence="30"/>
+        
+        <menuitem
+            id="menu_stock_mobile_package"
+            name="Gói cước"
+            parent="menu_stock_root"
+            action="action_mobile_package"
+            sequence="30"/>
+        
+        <menuitem
+            id="menu_stock_comment_history"
+            name="Danh sách comment"
+            parent="menu_stock_root"
+            action="action_comment_history"
+            sequence="40"/>
+
+        <!-- Report -->
+        <menuitem
+            id="menu_stock_report_history"
+            name="Báo cáo"
+            groups="group_stock_admin"
+            parent="menu_stock_root"
+            sequence="50"/>
+
+        <menuitem
+            id="menu_stock_sim_search_history"
+            name="Lịch sử tra số"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_sim_search_history"
+            sequence="0"/>
+
+        <menuitem
+            id="menu_stock_sim_number_upload_history"
+            name="Lịch sử up số sim"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_sim_number_upload_history"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_stock_report_competitor_comparison"
+            name="BC so sánh đối thủ"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_report_competitor_comparison"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_stock_sim_number_upload_monthly"
+            name="BC số lượng sim up hàng tháng"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_sim_number_upload_monthly"
+            sequence="30"/>
+
+        <menuitem
+            id="menu_stock_report_expired_license_plates"
+            name="BC bảng số quá hạn"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_report_expired_license_plates"
+            sequence="40"/>
+
+        <menuitem
+            id="menu_stock_report_low_quality_numbers"
+            name="BC bảng số chất lượng thấp"
+            groups="group_stock_admin"
+            parent="menu_stock_report_history"
+            action="dth_stock.action_report_low_quality_numbers"
+            sequence="50"/>
+        
+    	<!-- CONFIGURATION -->
+	    <menuitem
+	        id="menu_stock_config"
+	        name="Cấu hình"
+	        parent="menu_stock_root"
+	        sequence="99" groups="group_stock_admin"/>
+	        
+	    <menuitem
+	        id="menu_stock_config_settings"
+	        name="Thiết lập"
+	        parent="menu_stock_config"
+	        action="dth_stock.stock_config_settings_action"
+	        groups="base.group_system"
+	        sequence="0"/>
+       <menuitem
+	        id="menu_stock_sim_category"
+	        name="Loại sim"
+	        parent="menu_stock_config"
+	        action="dth_stock.action_sim_category"
+	        sequence="10"/>
+		<menuitem
+	        id="menu_stock_telecom_supplier"
+	        name="Nhà mạng"
+	        parent="menu_stock_config"
+	        action="dth_stock.action_telecom_supplier"
+	        sequence="20"/> 
+        <menuitem
+	        id="menu_stock_configuration_satellite_web"
+	        name="Cấu hình web vệ tinh"
+	        parent="menu_stock_config"
+	        action="dth_stock.action_configuration_satellite_web"
+	        sequence="30"/> 
+       
+    </data>
+</odoo>

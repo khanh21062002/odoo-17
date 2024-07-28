@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="library_management_institute_tree" model="ir.ui.view">
+            <field name="name">library.institute.tree</field>
+            <field name="model">library.institute</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách Khoa/Viện">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="library_management_institute_form" model="ir.ui.view">
+            <field name="name">library.institute.form</field>
+            <field name="model">library.institute</field>
+            <field name="arch" type="xml">
+                <form string="Thông tin Khoa/Viện">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_management_computer_search" model="ir.ui.view">
+            <field name="name">library.institute.search</field>
+            <field name="model">library.institute</field>
+            <field name="arch" type="xml">
+                <search string="Tìm kiếm Khoa/Viện">
+                    <field name="name" filter_domain="['|',('name', 'ilike', self),('code', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_library_management_institute" model="ir.actions.act_window">
+            <field name="name">Khoa/Viện</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">library.institute</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Hãy thêm một Khoa/Viện mới !
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="library_management_institute"
+                name="Khoa/Viện"
+                parent="menu_library_management_setting"
+                action="action_library_management_institute"
+                sequence="10"/>
+    </data>
+</odoo>

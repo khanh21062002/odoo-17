@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sim_upload_history_form" model="ir.ui.view">
+            <field name="name">sim.upload.history.form</field>
+            <field name="model">dth.kho.sim.upload.history</field>
+            <field name="arch" type="xml">
+                <form string="Up bảng" duplicate="0">
+					<header invisible="not id">
+						<button name="upload_file" string="Up File" invisible="state != 'draft'" type="object" class="oe_highlight"/>
+						<button name="approve_upload" string="Duyệt" type="object" class="oe_highlight" invisible="state != 'to_confirm'" confirm="Hãy chắc chắn rằng bạn đã lưu các dữ liệu đã chỉnh sửa trước khi duyệt."/>
+						<button name="download_abnormal" string="Tải về bất thường" type="object" invisible="state not in ('to_confirm', 'processing', 'done') or abnormal_sim == 0"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,to_confirm,processing,done" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                        	<group>
+								<field name="sim_maker_id_domain" invisible="1"/>
+                        		<field name="sim_maker_id" required="1" readonly="not (state == 'draft' or (state == 'to_confirm' and email != False))" domain="sim_maker_id_domain"/>
+                        		<label for="email" invisible="email == False or state != 'to_confirm'"/>
+                        		<div invisible="email == False or state != 'to_confirm'">
+	                        		<field name="email" readonly="1" nolabel="1"/>
+	                        		<div style="color: red">(*) Có nhiều mã thợ sim sử dụng trùng email này nên hệ thống chưa nhận diện được thợ sim. Vui lòng chọn thợ sim chính xác và lưu lại để hệ thống tính toán đúng giá thu.</div>
+                        		</div>
+                        	</group>
+                        	<group>
+								<label for="file_upload"/>
+								<div>
+	                        		<field name="file_upload" filename="file_name" nolabel="1" readonly="state != 'draft'" invisible="file_upload_temp != False"/>
+	                        		<field name="file_upload_temp" filename="file_name" nolabel="1" readonly="state != 'draft'" invisible="file_upload_temp == False"/>
+	                        		<div><i style="color: red">Hỗ trợ các định dạng file .xls hoặc .xlsx</i></div>
+                        		</div>
+                        		<field name="file_name" invisible="1"/>
+                        	</group>
+                    	</group>
+                    	<div class="row pt-4 pb-4" invisible="state == 'draft'">
+							<div class="col up-bang">
+								<label for="total_sim"/>
+								<field name="total_sim" readonly="1"/>
+							</div>
+							<div class="col up-bang">
+								<label for="abnormal_sim"/>
+								<field name="abnormal_sim" readonly="1"/>
+							</div>
+							<div class="col up-bang">
+								<label for="old_sim"/>
+								<field name="old_sim" readonly="1"/>
+							</div>
+							<div class="col up-bang">
+								<label for="new_sim"/>
+								<field name="new_sim" readonly="1"/>
+							</div>
+							<div class="col up-bang">
+								<label for="sold_sim"/>
+								<field name="sold_sim" readonly="1"/>
+							</div>
+						</div>
+						<field name="line_ids" readonly="state not in ('draft', 'to_confirm')" invisible="state not in ('to_confirm', 'processing', 'done')">
+							<tree decoration-success="abnormal == False" decoration-danger="abnormal == True" editable="bottom">
+								<field name="state" column_invisible="1"/>
+								<field name="currency_id" column_invisible="1"/>
+								<field name="abnormal" widget="boolean_toggle" string="BT" readonly="state != 'to_confirm'" class="abnormal" options="{'autosave': False}"/>
+								<field name="sim_name"/>
+								<field name="sell_price_s"/>
+								<field name="buy_price_s"/>
+								<field name="telecom_supplier_id"/>
+								<!--<field name="category_ids" widget="many2many_tags"/>-->
+								<field name="sub_type"/>
+								<field name="sim_state"/>
+								<!--<field name="package_ids" widget="many2many_tags"/>-->
+								<field name="commited"/>
+								<field name="note"/>
+							</tree>
+						</field>
+						<!--<field name="line_store_ids" readonly="1" invisible="state != 'done'">
+							<tree decoration-success="abnormal == False" decoration-danger="abnormal == True" editable="bottom">
+								<field name="state" column_invisible="1"/>
+								<field name="currency_id" column_invisible="1"/>
+								<field name="abnormal" widget="boolean_toggle" string="BT" readonly="1"/>
+								<field name="sim_name"/>
+								<field name="sell_price_s"/>
+								<field name="buy_price_s"/>
+								<field name="telecom_supplier_id"/>
+								<field name="category_ids" widget="many2many_tags"/>
+								<field name="sub_type"/>
+								<field name="sim_state"/>
+								<field name="package_ids" widget="many2many_tags"/>
+								<field name="commited"/>
+								<field name="note"/>
+							</tree>
+						</field>-->
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_sim_upload_history_tree" model="ir.ui.view">
+            <field name="name">sim.upload.history.tree</field>
+            <field name="model">dth.kho.sim.upload.history</field>
+            <field name="arch" type="xml">
+                <tree string="Lịch sử up bảng" sample="1" export_xlsx="0">
+                    <field name="sim_maker_id"/>
+                    <field name="total_sim"/>
+                    <field name="abnormal_sim"/>
+                    <field name="create_date" string="Thời gian up bảng"/>
+                    <field name="type"/>
+                    <field name="confirm_date" string="Thời gian hoàn thành"/>
+                    <field name="state" string="Trạng thái" widget="badge" decoration-success="state == 'done'"
+                        decoration-warning="state == 'to_confirm'" decoration-info="state == 'processing'" decoration-muted="state == 'cancel'"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sim_upload_history" model="ir.ui.view">
+            <field name="name">sim.upload.history.history.search</field>
+            <field name="model">dth.kho.sim.upload.history</field>
+            <field name="arch" type="xml">
+                <search string="Up bảng">
+					<field name="sim_maker_id" string="Thợ sim"/>
+                    <separator/>
+                    <filter string="Nháp" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Chờ duyệt" name="filter_to_confirm" domain="[('state', '=', 'to_confirm')]"/>
+                    <filter string="Đã hoàn thành" name="filter_done" domain="[('state', '=', 'done')]"/>
+                    <filter string="Up thủ công" name="filter_up_manual" domain="[('type', '=', 'manual')]"/>
+                    <filter string="Up tự động" name="filter_up_auto" domain="[('type', '=', 'auto')]"/>
+                    <filter string="Bảng bất thường" name="filter_abnormal_simabnormal_sim" domain="[('abnormal_sim', '=', True)]"/>
+                    <filter string="Ngày up" name="filter_confirm_date" date="confirm_date" default_period="this_month"/>
+                    
+                    <group expand="0" string="Group By">
+                        <filter string="Thợ sim" name="group_sim_maker_id" domain="[]" context="{'group_by': 'sim_maker_id'}"/>
+                        <filter string="Người up" name="group_confirm_user_id" domain="[]" context="{'group_by': 'confirm_user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_sim_upload_history_done" model="ir.actions.act_window">
+            <field name="name">Lịch sử up bảng</field>
+            <field name="res_model">dth.kho.sim.upload.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_sim_upload_history"/>
+            <field name="context">{'search_default_filter_done': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một lịch sử up bảng.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_sim_upload_history_to_confirm" model="ir.actions.act_window">
+            <field name="name">Up bảng chờ duyệt</field>
+            <field name="res_model">dth.kho.sim.upload.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_sim_upload_history"/>
+            <field name="context">{'search_default_filter_to_confirm': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một lịch sử up bảng.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_sim_upload_history" model="ir.actions.act_window">
+            <field name="name">Up bảng</field>
+            <field name="res_model">dth.kho.sim.upload.history</field>
+            <field name="view_mode">form,tree</field>
+            <field name="search_view_id" ref="view_sim_upload_history"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Tạo mới một lịch sử up bảng.
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

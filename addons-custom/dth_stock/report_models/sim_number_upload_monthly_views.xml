@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_sim_number_upload_monthly_tree" model="ir.ui.view">
+            <field name="name">sim.number.upload.monthly.tree</field>
+            <field name="model">dth.kho.sim.number.upload.monthly</field>
+            <field name="arch" type="xml">
+                <tree string="Số lượng sim up hàng tháng" sample="1" create="0" edit="0">
+                    <field name="sim_maker_id"/>
+                    <field name="upload_time"/>
+                    <field name="total_sim" sum="Total"/>
+                    <field name="sold_sim" sum="Total"/>
+                    <field name="new_sim" sum="Total"/>
+                    <field name="percent_error" avg="Total" widget="percentage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sim_number_upload_monthly_filter" model="ir.ui.view">
+            <field name="name">sim.number.upload.monthly.search</field>
+            <field name="model">dth.kho.sim.number.upload.monthly</field>
+            <field name="arch" type="xml">
+                <search string="Số lượng sim up hàng tháng">
+                    <field name="sim_maker_id" string="Thợ sim"/>
+                    <separator/>
+                    <filter string="Thời gian tra cứu" name="filter_create_date" date="create_date"/>
+                    <filter name="filter_month_now" string="Tháng này" domain="[('create_date','&gt;=', datetime.datetime(context_today().year, context_today().month, 1)), ('create_date','&lt;', (datetime.datetime(context_today().year, context_today().month, 1) + relativedelta(months=1)))]"/>
+                    <filter name="filter_month_before" string="1 tháng trước" domain="[('create_date','&gt;=', datetime.datetime(context_today().year, context_today().month, 1) - relativedelta(months=1)), ('create_date','&lt;', datetime.datetime(context_today().year, context_today().month, 1))]"/>
+                    <filter name="filter_two_months_before" string="2 tháng trước" domain="[('create_date','&gt;=', datetime.datetime(context_today().year, context_today().month, 1) - relativedelta(months=2)), ('create_date','&lt;', datetime.datetime(context_today().year, context_today().month, 1) - relativedelta(months=1))]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Thợ sim" name="group_sim_maker_id" domain="[]" context="{'group_by': 'sim_maker_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_sim_number_upload_monthly" model="ir.actions.act_window">
+            <field name="name">Số lượng sim up hàng tháng</field>
+            <field name="res_model">dth.kho.sim.number.upload.monthly</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_sim_number_upload_monthly_filter"/>
+            <field name="context">{'search_default_filter_month_now': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo mới Số lượng sim up hàng tháng
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

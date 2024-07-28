@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="library_management_student_tree" model="ir.ui.view">
+        <field name="name">library.student.tree</field>
+        <field name="model">library.student</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách sinh viên">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="institute_id"/>
+                <field name="level_id"/>
+                <field name="address"/>
+                <field name="phone_number"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="library_management_student_form" model="ir.ui.view">
+        <field name="name">library.student.form</field>
+        <field name="model">library.student</field>
+        <field name="arch" type="xml">
+            <form string="Thông tin sinh viên">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="student_id" readonly = "1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Nhập tên SV"/>
+                            <field name="institute_id"/>
+                            <field name="level_id"/>
+                            <field name="birthday"/>
+                            <field name="gender"/>
+                            <field name="address"/>
+                            <field name="phone_number" placeholder="0912345678"/>
+                            <field name="email" placeholder="example1@gmail.com"/>
+                            <field name="age" readonly = "1"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" readonly="0"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_management_student_search" model="ir.ui.view">
+        <field name="name">library.student.search</field>
+        <field name="model">library.student</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm học sinh">
+                <field name="name" filter_domain="['|',('name', 'ilike', self),('student_id', 'ilike', self)]"/>
+                <field name="student_id"/>
+                <separator />
+                <filter string="Nam" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Nữ" name="female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Khác" name="other" domain="[('gender', '=', 'other')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_library_management_student" model="ir.actions.act_window">
+        <field name="name">Sinh viên</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">library.student</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Hãy tạo môt học sinh mới   !
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="library_management_student"
+            name="Sinh viên"
+            parent="menu_library_management_people"
+            action="action_library_management_student"
+            sequence="10"/>
+</odoo>
